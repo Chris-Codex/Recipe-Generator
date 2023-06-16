@@ -6,16 +6,16 @@ module.exports = {
   ],
   theme: {
     theme: {
-      screens: {
-        'sm': '640px',
-        // => @media (min-width: 640px) { ... }
+      // screens: {
+      //   'sm': '340px',
+      //   // => @media (min-width: 640px) { ... }
 
-        'md': '1024px',
-        // => @media (min-width: 1024px) { ... }
+      //   'md': '1024px',
+      //   // => @media (min-width: 1024px) { ... }
 
-        'lg': '1280px',
-        // => @media (min-width: 1280px) { ... }
-      },
+      //   'lg': '1280px',
+      //   // => @media (min-width: 1280px) { ... }
+      // },
     }
   },
   plugins: [],

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { AiOutlineClose } from "react-icons/ai";
-
+import { AiOutlineClose, AiOutlineInstagram } from "react-icons/ai";
+import { FaTwitter } from "react-icons/fa";
+import { FaFacebookF } from "react-icons/fa";
+import { BsWhatsapp } from "react-icons/bs";
 const Navbar = () => {
   const [toggleHamburger, setToggleHamburger] = useState(false);
 
@@ -11,11 +13,11 @@ const Navbar = () => {
   };
 
   return (
-    <header className="w-full h-auto ">
-      <div className="flex flex-row justify-between max-w-[1240px]  p-10 mx-auto items-center">
-        <div className="flex flex-row items-center gap-10">
+    <nav className="w-full h-auto">
+      <div className="flex flex-row justify-between max-w-[1240px] p-10 mx-auto items-center">
+        <div className="flex flex-row w-full justify-between items-center">
           <h1 className="text-3xl font-bold text-[#f17373]">Recipes.</h1>
-          <nav className="hidden">
+          <nav className="hidden md:flex">
             <ul className="flex flex-row text-[#646464]">
               <li className="p-4">Home</li>
               <li className="p-4">Recipe</li>
@@ -23,17 +25,14 @@ const Navbar = () => {
               <li className="p-4">Contact</li>
             </ul>
           </nav>
-        </div>
-        <div className="flex flex-row justify-between items-center space-x-[30px]">
-          <p className="text-[#646464] hidden">Sign in</p>
-          <div className="sm:w-full h-[40px]  bg-[#f17373] rounded-full hidden">
-            <p className="text-[#fff] text-center pt-2">Sign up</p>
+          <div className="block md:hidden" onClick={handleToggle}>
+            <GiHamburgerMenu size={20} color="#000" />
           </div>
-          <GiHamburgerMenu size={20} color="#646464" onClick={handleToggle} />
         </div>
+
         {/*Mobile View*/}
         {toggleHamburger ? (
-          <nav className="fixed top-0 right-0 w-[60%] bg-[#000] px-3 h-full border-r border-r-[#cbcbcb]">
+          <header className="fixed top-0 right-0 w-[60%] bg-[#000] px-3 h-full border-r border-r-[#cbcbcb] ease-in-out duration-500 z-50">
             <div className="flex flex-row justify-between items-center pt-4 ">
               <h4 className="text-2xl font-bold text-[#f17373]">Recipes.</h4>
               <AiOutlineClose size={20} color="#fff" onClick={handleToggle} />
@@ -44,10 +43,19 @@ const Navbar = () => {
               <li className="p-4 border-b  border-b-[#cbcbcb29]">Search</li>
               <li className="p-4 border-b  border-b-[#cbcbcb29]">Contact</li>
             </ul>
-          </nav>
+            <div className="w-full h-[40px] mt-10  bg-[#f17373] rounded-full">
+              <p className="text-[#fff] text-center pt-2">Sign up</p>
+            </div>
+            <div className="flex flex-row justify-center space-x-4 items-center pt-[30px] text-[#fff] md:hidden">
+              <FaTwitter size={20} color="#fff" />
+              <FaFacebookF size={20} color="#fff" />
+              <AiOutlineInstagram size={20} color="#fff" />
+              <BsWhatsapp size={20} color="#fff" />
+            </div>
+          </header>
         ) : null}
       </div>
-    </header>
+    </nav>
   );
 };
 
