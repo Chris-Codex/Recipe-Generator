@@ -14,7 +14,7 @@ const Navbar = () => {
 
   return (
     <nav className="w-full h-auto">
-      <div className="flex flex-row justify-between max-w-[1240px] p-10 mx-auto items-center">
+      <div className="flex flex-row justify-between max-w-[1340px] p-10 mx-auto items-center">
         <div className="flex flex-row w-full justify-between items-center">
           <h1 className="text-3xl font-bold text-[#f17373]">Recipes.</h1>
           <nav className="hidden md:flex">
