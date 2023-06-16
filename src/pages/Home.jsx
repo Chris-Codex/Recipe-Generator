@@ -4,30 +4,39 @@ import Navbar from "../components/Navbar";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setAllRecipes } from "../features/recipeSlice/recipeSlice";
+import { Link } from "react-router-dom";
+import { fetchAllRecipes } from "../services/api";
+import useRecipeFormQuery from "../CustomHooks/useRecipeFormQuery";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const [recipes, setRecipes] = useState("");
+  const {
+    recipes,
+    setRecipes,
+    ingredients,
+    setIngredients,
+    quantity,
+    setQuantity,
+    cookingTime,
+    setCookingTime,
+    numberOfIngredients,
+    setNumberOfIngredients,
+    mealType,
+    setMealType,
+    searchResult,
+    setSearchResult,
+  } = useRecipeFormQuery();
 
+  //This useEffect Hook fetches recipes from the API and updates the hook and also dispatch to redux
   useEffect(() => {
-    const fetchAllRecipes = async () => {
-      try {
-        await axios
-          .get("https://www.themealdb.com/api/json/v1/1/categories.php", {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          })
-          .then((res) => {
-            setRecipes(res.data.categories);
-            dispatch(setAllRecipes(res.data.categories));
-          });
-      } catch (error) {
-        console.log("All Recipes Error", error);
-        return error.message;
-      }
-    };
-    fetchAllRecipes();
+    try {
+      fetchAllRecipes().then((res) => {
+        setRecipes(res);
+        dispatch(setAllRecipes(res));
+      });
+    } catch (error) {
+      throw new Error("Faileed to fetch recipes");
+    }
   }, [dispatch]);
 
   return (
@@ -54,7 +63,7 @@ const Home = () => {
           <div className="relative w-full bg-black md:w-[300px] md:bg-black md:h-[400px]">
             LIST
           </div>
-          <div className="max-sm:w-[810px] max-sm:flex max-sm:flex-col max-sm:flex-auto max-sm:gap-6 md:w-[810px] md:flex md:flex-wrap flex-auto  md:gap-6 md:h-full">
+          <div className="max-sm:w-[810px] max-sm:flex max-sm:flex-col max-sm:flex-auto max-sm:gap-6 md:w-[810px] md:flex md:flex-wrap flex-auto  md:gap-6 md:h-full pb-20">
             {recipes.map((items) => {
               const { idCategory, strCategory, strCategoryThumb } = items;
 
@@ -75,9 +84,11 @@ const Home = () => {
                         {strCategory}
                       </p>
                     </div>
-                    <div className="absolute top-[120px] bottom-0 w-full flex items-center justify-center h-[40px]  ">
-                      <div className="flex justify-center items-center w-7/12 h-[40px] bg-[#c06d6d] cursor-pointer">
-                        <p className="text-[#fff] font-bold">View More</p>
+                    <div className="absolute top-[120px] bottom-0 w-full flex items-center justify-center h-[40px]">
+                      <div className="flex justify-center items-center w-7/12 h-[40px] bg-[#c06d6d] cursor-pointer rounded-md">
+                        <Link to={`/recipe/${idCategory}`}>
+                          <p className="text-[#fff] font-bold">View More</p>
+                        </Link>
                       </div>
                     </div>
                   </div>
