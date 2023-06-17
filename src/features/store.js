@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import recipeReducer from './recipeSlice/recipeSlice';
+import ingredientReducer from "./recipeSlice/ingredientSlice";
+import thunk from "redux-thunk";
 
 
 
 export const store = configureStore({
     reducer: {
-        recipes: recipeReducer
-    }
+        ingredients: ingredientReducer
+    },
+    middleware: [thunk],
 })

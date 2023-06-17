@@ -2,43 +2,81 @@ import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Navbar from "../components/Navbar";
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import { setAllRecipes } from "../features/recipeSlice/recipeSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { FetchRecipeFilter, fetchAllRecipes } from "../services/api";
+import {
+  FetchRecipeFilter,
+  fetchAllIngredients,
+  fetchAllRecipes,
+} from "../services/api";
 import useRecipeFormQuery from "../CustomHooks/useRecipeFormQuery";
 import { AiOutlineSearch } from "react-icons/ai";
+import sampleImage from "../assets/test.webp";
+import { selectAllIngredients } from "../features/recipeSlice/ingredientSlice";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const [recipes, setRecipes] = useState([]);
-  const [searchQry, setSearchQry] = useState("");
+  const [ingredients, setIngredients] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [cookingTime, setCookingTime] = useState("");
+  const [numberOfIngredients, setNumberOfIngredients] = useState("");
+  const [mealType, setMealType] = useState("");
+  const [searchResult, setSearchResult] = useState("");
+  const getListIngredients = useSelector(selectAllIngredients);
+  const [pageNumber, setPageNumber] = useState(0);
 
-  //This useEffect Hook fetches recipes from the API and updates the hook and also dispatch to redux
+  //This useEffect Hook fetches list of recipes from the API and updates the hook and also dispatch to redux
   useEffect(() => {
-    try {
-      fetchAllRecipes().then((res) => {
-        setRecipes(res);
-        dispatch(setAllRecipes(res));
-      });
-    } catch (error) {
-      throw new Error("Faileed to fetch recipes");
-    }
-  }, [dispatch, setRecipes]);
+    dispatch(fetchAllIngredients());
+  }, []);
 
-  const handleSearchSubmit = async (e) => {
-    e.preventDefault();
+  //Define the pagination settings for displaying the list ingredients
+  const listIngredientsPerPage = 25;
+  const nPagesVisited = pageNumber * listIngredientsPerPage;
 
-    try {
-      const response = await axios.get(
-        `https://themealdb.com/api/json/v1/1/filter.php?i=${searchQry}`
-      );
+  //Calculates the number of pages to be displayed
+  const pageCount = Array.isArray(getListIngredients)
+    ? Math.ceil(getListIngredients.length / listIngredientsPerPage)
+    : 0;
 
-      console.log("FILTER RESULT", response.data);
-    } catch (error) {
-      console.log("EEROR FILTER");
-    }
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
   };
+
+  //This logic helps render list of ingredients based on pagi9nation
+  const displayListIngredients = getListIngredients
+    .slice(nPagesVisited, nPagesVisited + listIngredientsPerPage)
+    .map((list) => {
+      const { idIngredient, strIngredient } = list;
+
+      return (
+        <aside
+          className="w-[100%] relative md:w-[30%] flex-auto h-[200px] rounded-[20px] group"
+          key={idIngredient}
+        >
+          <img
+            src={sampleImage}
+            alt="yam"
+            className="w-full h-[200px] object-cover rounded-[20px] md:w-full md:h-[200px] md:object-cover md:rounded-[20px]"
+          />
+          <div className="absolute top-0 bottom-0 inset-0 bg-[#00000071] opacity-50 group-hover:opacity-100 rounded-[20px]"></div>
+          <div className="absolute top-0 bottom-0 w-full flex-col justify-center items-center opacity-0 group-hover:opacity-100">
+            <div className="flex justify-center items-center h-full">
+              <p className="text-[#fff] text-[20px] font-bold ">
+                {strIngredient}
+              </p>
+            </div>
+            <div className="absolute top-[120px] bottom-0 w-full flex items-center justify-center h-[40px]">
+              <div className="flex justify-center items-center w-7/12 h-[40px] bg-[#c06d6d] cursor-pointer rounded-md">
+                <Link to={`/recipe/${idIngredient}`}>
+                  <p className="text-[#fff] font-bold">View More</p>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </aside>
+      );
+    });
 
   return (
     <main>
@@ -53,14 +91,15 @@ const Home = () => {
           <div className="mt-3 w-[810px] flex-auto  flex-row items-center  md:w-[810px] md:flex-auto md:flex md:items-center">
             <input
               type="text"
-              value={searchQry}
-              onChange={(e) => setSearchQry(e.target.value)}
+              value={ingredients}
+              onChange={(e) => setIngredients(e.target.value)}
               className="w-[100%] h-[50px] px-4 bg-[#b3b3b338] outline-none md:w-[61%] md:h-[50px] md:px-4 md:bg-[#b3b3b338] md:outline-none"
               placeholder="Search for recipes"
             />
+
             <div
               className="w-[5%] h-[50px] bg-[#b3b3b338] flex justify-center items-center "
-              onClick={handleSearchSubmit}
+              // onClick={handleSearchSubmit}
             >
               <AiOutlineSearch size={20} color="#000" />
             </div>
@@ -74,37 +113,7 @@ const Home = () => {
             LIST
           </div>
           <div className="max-sm:w-[810px] max-sm:flex max-sm:flex-col max-sm:flex-auto max-sm:gap-6 md:w-[810px] md:flex md:flex-wrap flex-auto  md:gap-6 md:h-full pb-20">
-            {recipes.map((items) => {
-              const { idCategory, strCategory, strCategoryThumb } = items;
-
-              return (
-                <aside
-                  className="w-[100%] relative md:w-[30%] flex-auto h-[200px] rounded-[20px] group"
-                  key={idCategory}
-                >
-                  <img
-                    src={strCategoryThumb}
-                    alt="yam"
-                    className="w-full h-[200px] object-cover rounded-[20px] md:w-full md:h-[200px] md:object-cover md:rounded-[20px]"
-                  />
-                  <div className="absolute top-0 bottom-0 inset-0 bg-[#00000071] opacity-50 group-hover:opacity-100 rounded-[20px]"></div>
-                  <div className="absolute top-0 bottom-0 w-full flex-col justify-center items-center opacity-0 group-hover:opacity-100">
-                    <div className="flex justify-center items-center h-full">
-                      <p className="text-[#fff] text-[20px] font-bold ">
-                        {strCategory}
-                      </p>
-                    </div>
-                    <div className="absolute top-[120px] bottom-0 w-full flex items-center justify-center h-[40px]">
-                      <div className="flex justify-center items-center w-7/12 h-[40px] bg-[#c06d6d] cursor-pointer rounded-md">
-                        <Link to={`/recipe/${idCategory}`}>
-                          <p className="text-[#fff] font-bold">View More</p>
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </aside>
-              );
-            })}
+            {displayListIngredients}
           </div>
         </div>
       </section>
