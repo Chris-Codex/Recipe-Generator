@@ -5,27 +5,14 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setAllRecipes } from "../features/recipeSlice/recipeSlice";
 import { Link } from "react-router-dom";
-import { fetchAllRecipes } from "../services/api";
+import { FetchRecipeFilter, fetchAllRecipes } from "../services/api";
 import useRecipeFormQuery from "../CustomHooks/useRecipeFormQuery";
+import { AiOutlineSearch } from "react-icons/ai";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const {
-    recipes,
-    setRecipes,
-    ingredients,
-    setIngredients,
-    quantity,
-    setQuantity,
-    cookingTime,
-    setCookingTime,
-    numberOfIngredients,
-    setNumberOfIngredients,
-    mealType,
-    setMealType,
-    searchResult,
-    setSearchResult,
-  } = useRecipeFormQuery();
+  const [recipes, setRecipes] = useState([]);
+  const [searchQry, setSearchQry] = useState("");
 
   //This useEffect Hook fetches recipes from the API and updates the hook and also dispatch to redux
   useEffect(() => {
@@ -37,7 +24,21 @@ const Home = () => {
     } catch (error) {
       throw new Error("Faileed to fetch recipes");
     }
-  }, [dispatch]);
+  }, [dispatch, setRecipes]);
+
+  const handleSearchSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.get(
+        `https://themealdb.com/api/json/v1/1/filter.php?i=${searchQry}`
+      );
+
+      console.log("FILTER RESULT", response.data);
+    } catch (error) {
+      console.log("EEROR FILTER");
+    }
+  };
 
   return (
     <main>
@@ -49,11 +50,20 @@ const Home = () => {
           <div className="w-[340px]">
             <h1 className="text-[40px]">Recipes</h1>
           </div>
-          <div className="mt-3 w-[810px] flex-auto flex items-center  md:w-[810px] md:flex-auto md:flex md:items-center">
+          <div className="mt-3 w-[810px] flex-auto  flex-row items-center  md:w-[810px] md:flex-auto md:flex md:items-center">
             <input
-              className="w-[100%] h-[50px] px-4 bg-[#b3b3b338] rounded-lg outline-none md:w-[66%] md:h-[50px] md:px-4 md:bg-[#b3b3b338] md:rounded-lg md:outline-none"
+              type="text"
+              value={searchQry}
+              onChange={(e) => setSearchQry(e.target.value)}
+              className="w-[100%] h-[50px] px-4 bg-[#b3b3b338] outline-none md:w-[61%] md:h-[50px] md:px-4 md:bg-[#b3b3b338] md:outline-none"
               placeholder="Search for recipes"
             />
+            <div
+              className="w-[5%] h-[50px] bg-[#b3b3b338] flex justify-center items-center "
+              onClick={handleSearchSubmit}
+            >
+              <AiOutlineSearch size={20} color="#000" />
+            </div>
           </div>
         </div>
       </div>
