@@ -16,7 +16,7 @@ const Navbar = () => {
     <nav className="w-full h-auto">
       <div className="flex flex-row justify-between max-w-[1340px] p-10 mx-auto items-center">
         <div className="flex flex-row w-full justify-between items-center">
-          <h1 className="text-3xl font-bold text-[#f17373]">Recipes.</h1>
+          <h1 className="text-3xl font-bold text-[#18b648] ">Recipes.</h1>
           <nav className="hidden md:flex">
             <ul className="flex flex-row text-[#646464]">
               <li className="p-4">Home</li>
@@ -34,7 +34,7 @@ const Navbar = () => {
         {toggleHamburger ? (
           <header className="fixed top-0 right-0 w-[60%] bg-[#000] px-3 h-full border-r border-r-[#cbcbcb] ease-in-out duration-500 z-50">
             <div className="flex flex-row justify-between items-center pt-4 ">
-              <h4 className="text-2xl font-bold text-[#f17373]">Recipes.</h4>
+              <h4 className="text-2xl font-bold text-[#18b648] ">Recipes.</h4>
               <AiOutlineClose size={20} color="#fff" onClick={handleToggle} />
             </div>
             <ul className="flex-col pt-[10px] text-[#646464] text-[15px] uppercase">
@@ -43,7 +43,7 @@ const Navbar = () => {
               <li className="p-4 border-b  border-b-[#cbcbcb29]">Search</li>
               <li className="p-4 border-b  border-b-[#cbcbcb29]">Contact</li>
             </ul>
-            <div className="w-full h-[40px] mt-10  bg-[#f17373] rounded-full">
+            <div className="w-full h-[40px] mt-10  bg-[#18b648] rounded-full">
               <p className="text-[#fff] text-center pt-2">Sign up</p>
             </div>
             <div className="flex flex-row justify-center space-x-4 items-center pt-[30px] text-[#fff] md:hidden">
