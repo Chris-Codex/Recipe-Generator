@@ -1,101 +1,42 @@
 import React, { useContext, useEffect, useState } from "react";
-import Header from "./Header";
-import Navbar from "./Navbar";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import Header from "../Header";
+import Navbar from "../Navbar";
 import { Link } from "react-router-dom";
 import {
-  FetchRecipeFilter,
-  fetchAllCategories,
-  fetchAllIngredients,
-  fetchAllRecipes,
-} from "../services/api";
-import { AiOutlineSearch } from "react-icons/ai";
-import {
-  selectAllCategories,
-  selectAllIngredients,
-  setAllRecipes,
-} from "../features/recipeSlice/ingredientSlice";
-import Pagination from "./Pagination";
-import SearchForms from "./SearchForms";
-import { SearchContext } from "../context/Context";
+  selectAllRecipes,
+  selectRecipeCategory,
+} from "../../features/recipeSlice/ingredientSlice";
+import Pagination from "../Pagination";
+import SearchForms from "../SearchForms";
+import { useSelector } from "react-redux";
+import { SearchContext } from "../../context/Context";
 
-const Categories = () => {
-  const dispatch = useDispatch();
+const Recipe = () => {
   const [pageNumber, setPageNumber] = useState(0);
-  const {
-    ingredient,
-    setIngredient,
-    handleIngredientForm,
-    quantity,
-    setQuantity,
-    handleQuantity,
-    cookingTime,
-    setCookingTime,
-    handleCokingTime,
-    numberOfIngredients,
-    setNumberOfIngredients,
-    handleNumberOfIngredients,
-    mealType,
-    setMealType,
-    handleMealType,
-  } = useContext(SearchContext);
-  const [listCategories, setListCategories] = useState([]);
-  const [activeCategory, setActiveCategory] = useState("");
-  const [recipe, setRecipe] = useState([]);
-
-  //This useEffect Hook fetches list of recipes from the API and updates the hook and also dispatch to redux
-  useEffect(() => {
-    const fetchAllCategories = async () => {
-      try {
-        await axios
-          .get("https://www.themealdb.com/api/json/v1/1/categories.php")
-          .then((res) => {
-            setListCategories(res.data.categories);
-            setActiveCategory(res.data.categories[0].strCategory);
-          });
-      } catch (error) {
-        console.log("CATEGORY ERROR", error);
-      }
-    };
-
-    fetchAllCategories();
-  }, []);
-
-  useEffect(() => {
-    const fetchRecipes = async () => {
-      try {
-        const response = await axios.get(
-          `https://themealdb.com/api/json/v1/1/filter.php?i=${activeCategory}`
-        );
-        console.log("RECIPE", response);
-        setRecipe(response.data.meals);
-        dispatch(setAllRecipes(response.data.meals));
-      } catch (error) {
-        console.log("RECIPES ERROR:", error.message);
-      }
-    };
-
-    activeCategory && fetchRecipes();
-  }, [activeCategory]);
+  const getActiveRecipe = useSelector(selectRecipeCategory);
+  const getFilteredRecipe = useSelector(selectAllRecipes);
+  const { shortenText } = useContext(SearchContext);
+  const [activeRecipe, setActiveRecipe] = useState(getActiveRecipe);
 
   //Define the pagination settings for displaying the list ingredients
   const listRecipesPerPage = 12;
   const nPagesVisited = pageNumber * listRecipesPerPage;
 
-  //Calculates the number of pages to be displayed
-  const pageCount = recipe ? Math.ceil(recipe.length / listRecipesPerPage) : 0;
+  //   //Calculates the number of pages to be displayed
+  const pageCount = getFilteredRecipe
+    ? Math.ceil(getFilteredRecipe.length / listRecipesPerPage)
+    : 0;
 
   const changePage = ({ selected }) => {
     setPageNumber(selected);
   };
 
-  //This logic helps render list of ingredients based on pagi9nation
-  const displayCategories =
-    recipe &&
-    recipe
+  //   //This logic helps render list of ingredients based on pagi9nation
+  const displaySearchedRecipes =
+    getFilteredRecipe &&
+    getFilteredRecipe
       .slice(nPagesVisited, nPagesVisited + listRecipesPerPage)
-      .map((list) => {
+      ?.map((list) => {
         const { idMeal, strMeal, strMealThumb } = list;
 
         return (
@@ -111,12 +52,14 @@ const Categories = () => {
             <div className="absolute top-0 bottom-0 inset-0 bg-[#5f68687c] opacity-50 rounded-[15px] shadow-lg group-hover:opacity-100"></div>
             <div className="absolute top-0 bottom-0 w-full flex-col justify-center items-center opacity-100 ">
               <div className="absolute top-0 bottom-0 flex justify-center w-8/12 h-[40px] items-center bg-[#18b648] rounded-br-[30px]">
-                <p className="text-[#fff] text-[15px] font-bold ">{strMeal}</p>
+                <p className="text-[#fff] text-[15px] font-bold ">
+                  {shortenText(strMeal, 20)}
+                </p>
               </div>
 
               <div className="absolute top-20 bottom-0 w-full flex items-center justify-center h-[40px] opacity-0 group-hover:opacity-100">
                 <div className="flex justify-center items-center w-8/12 h-[40px] bg-[#18b648]  cursor-pointer rounded-sm">
-                  <Link to={`/recipeDetail/${idMeal}`}>
+                  <Link to={`/recipe/${idMeal}`}>
                     <p className="text-[#fff] font-bold">View More</p>
                   </Link>
                 </div>
@@ -135,11 +78,11 @@ const Categories = () => {
       <div className="flex justify-between max-w-[1340px] px-10 mt-[30px] mx-auto items-center">
         <div className="flex flex-wrap justify-between items-center w-full flex-shrink">
           <div className="w-[340px]">
-            <h1 className="text-[40px]">Recipes</h1>
+            <h1 className="text-[40px]">Categories</h1>
           </div>
           <div className="mt-3 w-[810px] flex-auto items-center  md:w-[810px] md:flex-auto md:flex md:items-center">
             <div className="max-sm:flex-row flex flex-wrap w-full items-center gap-6">
-              <h1 className="text-[20px]">Category </h1>
+              <h1 className="text-[20px]">Recipes </h1>
               <div className="max-sm:w-[74%] w-[88%] border border-b border-l-transparent border-r-transparent border-t-transparent border-[#999]"></div>
             </div>
           </div>
@@ -152,17 +95,19 @@ const Categories = () => {
           <div className="relative w-full bg-black md:w-[300px] md:bg-[#4551] md:h-auto">
             <p className="px-3 pt-6 text-[#605e5e]">Search By:</p>
             <div className="mx-10 mt-4 flex-col">
-              {listCategories.map((category) => {
+              {getFilteredRecipe.map((recipe) => {
                 return (
                   <div
-                    key={category.idCategory}
+                    key={recipe.idMeal}
                     className={`w-full h-[40px] bg-[#18b648] flex justify-center items-center rounded-md my-3 ${
-                      activeCategory === category.strCategory && "bg-[#157131]"
+                      activeRecipe === recipe.strMeal && "bg-[#12612a]"
                     }`}
-                    onClick={() => setActiveCategory(category.strCategory)}
+                    onClick={() => {
+                      setActiveRecipe(recipe.strMeal);
+                    }}
                   >
                     <p className="text-[#fff] tetx-[16px]">
-                      {category.strCategory}
+                      {shortenText(recipe.strMeal, 20)}
                     </p>
                   </div>
                 );
@@ -171,7 +116,7 @@ const Categories = () => {
           </div>
 
           <div className="max-sm:w-[810px] max-sm:flex max-sm:flex-col max-sm:flex-auto max-sm:gap-6 md:w-[810px] md:flex md:flex-wrap flex-auto  md:gap-6 md:h-full pb-20">
-            {displayCategories}
+            {displaySearchedRecipes}
           </div>
         </div>
       </section>
@@ -181,4 +126,4 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+export default Recipe;

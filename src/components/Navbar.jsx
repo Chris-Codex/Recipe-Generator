@@ -5,6 +5,7 @@ import { FaTwitter } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
 import { BsWhatsapp } from "react-icons/bs";
 import { SearchContext } from "../context/Context";
+import { Link } from "react-router-dom";
 const Navbar = () => {
   const [toggleHamburger, setToggleHamburger] = useState(false);
   const { handleSearchToggle } = useContext(SearchContext);
@@ -21,8 +22,12 @@ const Navbar = () => {
           <h1 className="text-3xl font-bold text-[#18b648] ">Recipes.</h1>
           <nav className="hidden md:flex">
             <ul className="flex flex-row text-[#646464]">
-              <li className="p-4">Home</li>
-              <li className="p-4">Recipe</li>
+              <li className="p-4">
+                <Link to="/">Home</Link>
+              </li>
+              <li className="p-4">
+                <Link to="/recipe">Recipe</Link>
+              </li>
               <li className="p-4">Contact</li>
               <li className="p-4" onClick={handleSearchToggle}>
                 Search

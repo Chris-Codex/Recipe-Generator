@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import Navbar from "./Navbar";
-import { useSelector } from "react-redux";
-import { selectAllRecipes } from "../features/recipeSlice/ingredientSlice";
 import axios from "axios";
+import Navbar from "../Navbar";
 
 const RecipeDetail = () => {
   const { id } = useParams();
   const [recipe, setRcipe] = useState({});
-  const [ingredient, setIngredient] = useState({});
+  const [ingredient, setIngredient] = useState([]);
   const [measure, setMeasure] = useState({});
 
-  console.log("INGREDIENT", ingredient);
+  console.log("+++++++++++", id, recipe);
 
   //retrieves the list of ingredients from redux and finds the id that matches with the associated ingredient id and renders it
   useEffect(() => {
@@ -69,7 +67,7 @@ const RecipeDetail = () => {
                   className="max-sm:w-[350px] max-sm:h-[350px] w-[500px] h-[400px]"
                 />
               </div>
-              {/* <div className="absolute w-[37%] h-full mr-[4px] top-90 bottom-[260px]">
+              <div className="absolute w-[37%] h-full mr-[4px] top-90 bottom-[260px]">
                 <h1 className="text-[40px]">Ingredients:</h1>
                 {ingredient.slice(0, 9).map((list, index) => {
                   return (
@@ -79,7 +77,7 @@ const RecipeDetail = () => {
                     </div>
                   );
                 })}
-              </div> */}
+              </div>
             </div>
 
             <div className="max-sm:w-[100%] max-sm:px-3 max-sm:py-3 px-8 py-8 flex-auto w-[45%]">

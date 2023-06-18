@@ -3,8 +3,9 @@ import Home from "./pages/Home";
 import { store } from "./features/store";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SearchProvider } from "./context/Context";
-import RecipeDetail from "./components/CategoryDetail";
-
+import RecipeDetail from "./components/categories/CategoryDetail";
+import Recipe from "./components/recipes/Recipe";
+import CategoryDetail from "./components/categories/CategoryDetail";
 
 
 function App() {
@@ -14,7 +15,9 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/recipeDetail/:id" element={<RecipeDetail />} />
+            <Route path="/category_recipe_detail/:id" element={<CategoryDetail />} />
+            <Route path="/recipe" element={<Recipe />} />
+            <Route path="/recipe/:id" element={<RecipeDetail />} />
           </Routes>
         </BrowserRouter>
       </SearchProvider>

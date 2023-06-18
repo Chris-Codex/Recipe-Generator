@@ -4,11 +4,11 @@ import { createContext, useState } from "react"
 export const SearchContext = createContext()
 
 export const SearchProvider = ({ children }) => {
-    const [ingredient, setIngredient] = useState(false)
-    const [quantity, setQuantity] = useState(false);
-    const [cookingTime, setCookingTime] = useState(false);
-    const [numberOfIngredients, setNumberOfIngredients] = useState(false);
-    const [mealType, setMealType] = useState(false);
+    const [selectedIngredient, setSelectIngredient] = useState("");
+    const [quantity, setQuantity] = useState("");
+    const [availableCookingTime, setAvailableCookingTime] = useState("");
+    const [numberOfIngredient, setNumberOfIngredient] = useState("");
+    const [mealType, setMealType] = useState("");
     const [toggleSearchForm, setToggleSearch] = useState(false);
     const [toggleDropdown, setToggleDropdown] = useState(false);
 
@@ -21,15 +21,24 @@ export const SearchProvider = ({ children }) => {
         setToggleDropdown((prevState) => !prevState);
     };
 
+    const shortenText = (text, num) => {
+        if (text.length > num) {
+            return text.slice(0, num) + "..."
+        } else {
+            return text
+        }
+    }
+
     const value = {
-        ingredient,
-        setIngredient,
+        shortenText,
+        selectedIngredient,
+        setSelectIngredient,
         quantity,
         setQuantity,
-        cookingTime,
-        setCookingTime,
-        numberOfIngredients,
-        setNumberOfIngredients,
+        availableCookingTime,
+        setAvailableCookingTime,
+        numberOfIngredient,
+        setNumberOfIngredient,
         mealType,
         setMealType,
         toggleSearchForm,
