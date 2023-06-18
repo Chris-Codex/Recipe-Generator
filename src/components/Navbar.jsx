@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineClose, AiOutlineInstagram } from "react-icons/ai";
 import { FaTwitter } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
 import { BsWhatsapp } from "react-icons/bs";
+import { SearchContext } from "../context/Context";
 const Navbar = () => {
   const [toggleHamburger, setToggleHamburger] = useState(false);
+  const { handleSearchToggle } = useContext(SearchContext);
 
   // Function to toggles the navigation components on mobile view
   const handleToggle = () => {
@@ -21,8 +23,10 @@ const Navbar = () => {
             <ul className="flex flex-row text-[#646464]">
               <li className="p-4">Home</li>
               <li className="p-4">Recipe</li>
-              <li className="p-4">Search</li>
               <li className="p-4">Contact</li>
+              <li className="p-4" onClick={handleSearchToggle}>
+                Search
+              </li>
             </ul>
           </nav>
           <div className="block md:hidden" onClick={handleToggle}>
@@ -40,8 +44,8 @@ const Navbar = () => {
             <ul className="flex-col pt-[10px] text-[#646464] text-[15px] uppercase">
               <li className="p-4  border-b border-b-[#cbcbcb29]">Home</li>
               <li className="p-4 border-b  border-b-[#cbcbcb29]">Recipe</li>
-              <li className="p-4 border-b  border-b-[#cbcbcb29]">Search</li>
               <li className="p-4 border-b  border-b-[#cbcbcb29]">Contact</li>
+              <li className="p-4 border-b  border-b-[#cbcbcb29]">Search</li>
             </ul>
             <div className="w-full h-[40px] mt-10  bg-[#18b648] rounded-full">
               <p className="text-[#fff] text-center pt-2">Sign up</p>

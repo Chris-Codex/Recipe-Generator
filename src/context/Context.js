@@ -9,43 +9,33 @@ export const SearchProvider = ({ children }) => {
     const [cookingTime, setCookingTime] = useState(false);
     const [numberOfIngredients, setNumberOfIngredients] = useState(false);
     const [mealType, setMealType] = useState(false);
+    const [toggleSearchForm, setToggleSearch] = useState(false);
+    const [toggleDropdown, setToggleDropdown] = useState(false);
 
-    const handleIngredientForm = () => {
-        setIngredient((prevState) => !prevState)
-    }
 
-    const handleQuantity = () => {
-        setQuantity((prevState) => !prevState)
-    }
+    const handleSearchToggle = () => {
+        setToggleSearch((prevState) => !prevState);
+    };
 
-    const handleCokingTime = () => {
-        setCookingTime((prevState) => !prevState)
-    }
-
-    const handleNumberOfIngredients = () => {
-        setNumberOfIngredients((prevState) => !prevState)
-    }
-
-    const handleMealType = () => {
-        setMealType((prevState) => !prevState)
-    }
+    const handleFormDropdownToggle = () => {
+        setToggleDropdown((prevState) => !prevState);
+    };
 
     const value = {
         ingredient,
         setIngredient,
-        handleIngredientForm,
         quantity,
         setQuantity,
-        handleQuantity,
         cookingTime,
         setCookingTime,
-        handleCokingTime,
         numberOfIngredients,
         setNumberOfIngredients,
-        handleNumberOfIngredients,
         mealType,
         setMealType,
-        handleMealType,
+        toggleSearchForm,
+        handleSearchToggle,
+        toggleDropdown, setToggleDropdown,
+        handleFormDropdownToggle
     }
 
     return <SearchContext.Provider value={value}>

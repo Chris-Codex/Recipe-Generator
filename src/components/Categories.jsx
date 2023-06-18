@@ -130,76 +130,43 @@ const Categories = () => {
     <main>
       <Navbar />
       <Header />
+      <SearchForms />
 
-      <div className="flex justify-between max-w-[1340px] px-10 mt-[50px] mx-auto items-center">
+      <div className="flex justify-between max-w-[1340px] px-10 mt-[30px] mx-auto items-center">
         <div className="flex flex-wrap justify-between items-center w-full flex-shrink">
           <div className="w-[340px]">
             <h1 className="text-[40px]">Recipes</h1>
           </div>
           <div className="mt-3 w-[810px] flex-auto items-center  md:w-[810px] md:flex-auto md:flex md:items-center">
-            <div className="flex flex-wrap w-full gap-6">
-              {listCategories.map((list) => (
-                <div
-                  className={`max-sm:w-4/12  w-2/12 h-[40px] flex items-center justify-center border border-[#18b648] rounded-lg ${
-                    activeCategory === list.strCategory && "bg-[#18b648]"
-                  }`}
-                  onClick={() => setActiveCategory(list.strCategory)}
-                >
-                  <p
-                    className={`text-[#4a4a4a] ${
-                      activeCategory === list.strCategory && "text-[#f8f8f8]"
-                    }`}
-                  >
-                    {list.strCategory}
-                  </p>
-                </div>
-              ))}
+            <div className="max-sm:flex-row flex flex-wrap w-full items-center gap-6">
+              <h1 className="text-[20px]">Category </h1>
+              <div className="max-sm:w-[74%] w-[88%] border border-b border-l-transparent border-r-transparent border-t-transparent border-[#999]"></div>
             </div>
           </div>
         </div>
       </div>
 
       <section className="flex justify-between max-w-[1340px] h-full px-10 mx-auto mt-[40px] items-center">
+        {/*Category button*/}
         <div className="flex flex-wrap flex-shrink w-full h-full gap-10">
-          <div className="relative w-full bg-black md:w-[300px] md:bg-[#4551] md:h-[400px]">
+          <div className="relative w-full bg-black md:w-[300px] md:bg-[#4551] md:h-auto">
             <p className="px-3 pt-6 text-[#605e5e]">Search By:</p>
-            <div className="mx-10 mt-4">
-              <div
-                className="w-full h-[40px] bg-[#18b648] flex justify-center items-center rounded-md "
-                onClick={handleIngredientForm}
-              >
-                <p className="text-[#fff] tetx-[16px]">Ingredients</p>
-              </div>
-
-              <div
-                className={`w-full h-[40px] bg-[#18b648] mt-4 flex justify-center items-center rounded-md ${
-                  ingredient ? "pointer-events-none opacity-50" : ""
-                }`}
-                onClick={handleQuantity}
-              >
-                <p className="text-[#fff] tetx-[16px]">Quantity</p>
-              </div>
-
-              <div
-                className="w-full h-[40px] bg-[#18b648] mt-4 flex justify-center items-center rounded-md"
-                onClick={handleCokingTime}
-              >
-                <p className="text-[#fff] tetx-[16px]">
-                  Available Cooking Time
-                </p>
-              </div>
-              <div
-                className="w-full h-[40px] bg-[#18b648] mt-4 flex justify-center items-center rounded-md"
-                onClick={handleNumberOfIngredients}
-              >
-                <p className="text-[#fff] tetx-[16px]">Number of Ingredients</p>
-              </div>
-              <div
-                className="w-full h-[40px] bg-[#18b648] mt-4 flex justify-center items-center rounded-md"
-                onClick={handleMealType}
-              >
-                <p className="text-[#fff] tetx-[16px]">Meal Type</p>
-              </div>
+            <div className="mx-10 mt-4 flex-col">
+              {listCategories.map((category) => {
+                return (
+                  <div
+                    key={category.idCategory}
+                    className={`w-full h-[40px] bg-[#18b648] flex justify-center items-center rounded-md my-3 ${
+                      activeCategory === category.strCategory && "bg-[#157131]"
+                    }`}
+                    onClick={() => setActiveCategory(category.strCategory)}
+                  >
+                    <p className="text-[#fff] tetx-[16px]">
+                      {category.strCategory}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
