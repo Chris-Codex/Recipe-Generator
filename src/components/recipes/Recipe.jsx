@@ -100,7 +100,7 @@ const Recipe = () => {
                   <div
                     key={recipe.idMeal}
                     className={`w-full h-[40px] bg-[#18b648] flex justify-center items-center rounded-md my-3 ${
-                      activeRecipe === recipe.strMeal && "bg-[#12612a]"
+                      activeRecipe === recipe.strMeal && "bg-[#44985d]"
                     }`}
                     onClick={() => {
                       setActiveRecipe(recipe.strMeal);

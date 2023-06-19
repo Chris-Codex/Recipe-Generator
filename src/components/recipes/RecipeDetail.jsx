@@ -10,8 +10,6 @@ const RecipeDetail = () => {
   const [ingredient, setIngredient] = useState([]);
   const [measure, setMeasure] = useState({});
 
-  console.log("+++++++++++", id, recipe);
-
   //retrieves the list of ingredients from redux and finds the id that matches with the associated ingredient id and renders it
   useEffect(() => {
     const fetchRecipeDetails = async () => {

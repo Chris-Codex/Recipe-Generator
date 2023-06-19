@@ -3,11 +3,14 @@ import { useParams } from "react-router-dom";
 
 import axios from "axios";
 import Navbar from "../Navbar";
+import { GiHotMeal } from "react-icons/gi";
+import YouTube from "react-youtube";
+import SearchForms from "../SearchForms";
 
 const CategoryDetail = () => {
   const { id } = useParams();
   const [recipe, setRcipe] = useState({});
-  const [ingredient, setIngredient] = useState({});
+  const [ingredient, setIngredient] = useState([]);
   const [measure, setMeasure] = useState({});
 
   //retrieves the list of ingredients from redux and finds the id that matches with the associated ingredient id and renders it
@@ -18,6 +21,7 @@ const CategoryDetail = () => {
           `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
         );
         console.log("DETAILS", response);
+        console.log("DET DT", response.data.meals[0]);
         setRcipe(response.data.meals[0]);
 
         Object.keys(response.data.meals[0]).forEach((key) => {
@@ -54,6 +58,7 @@ const CategoryDetail = () => {
   return (
     <div>
       <Navbar />
+      <SearchForms />
       <section className="w-full h-auto mt-[-40px]">
         <div className="flex flex-row justify-between max-w-[1340px] p-10 mx-auto items-center">
           <div className="max-sm:flex-col flex flex-wrap w-[100%] gap-2">
@@ -62,20 +67,9 @@ const CategoryDetail = () => {
                 <img
                   src={recipe.strMealThumb}
                   alt="recipe"
-                  className="max-sm:w-[350px] max-sm:h-[350px] w-[500px] h-[400px]"
+                  className="max-sm:w-[350px] max-sm:h-[350px] w-[100%] h-[400px]"
                 />
               </div>
-              {/* <div className="absolute w-[37%] h-full mr-[4px] top-90 bottom-[260px]">
-                <h1 className="text-[40px]">Ingredients:</h1>
-                {ingredient.slice(0, 9).map((list, index) => {
-                  return (
-                    <div className="absolute top-50 bottom-0 " key={list}>
-                      <p>{list}</p>
-                      <span>{measure[index]}</span>
-                    </div>
-                  );
-                })}
-              </div> */}
             </div>
 
             <div className="max-sm:w-[100%] max-sm:px-3 max-sm:py-3 px-8 py-8 flex-auto w-[45%]">
@@ -84,6 +78,50 @@ const CategoryDetail = () => {
                 <p>{recipe.strInstructions}</p>
               </div>
             </div>
+          </div>
+        </div>
+
+        <div className="w-full h-auto mt-[-40px]">
+          <div className="flex flex-row justify-between max-w-[1340px] p-10 mx-auto items-center gap-4">
+            <div className="max-sm:flex-col max-sm:gap-4 flex flex-wrap w-[100%] gap-6">
+              <h1 className="text-[#5c5656] text-[30px]">Ingredients</h1>
+              <div className="max-sm:flex-col flex flex-wrap gap-4 ">
+                {/*List ingredients*/}
+                {ingredient.slice(0, 9).map((list, index) => {
+                  return (
+                    <div
+                      className="max-sm:w-full w-4/12 h-[100px] bg-[#ebeede4e] shadow-lg rounded-md flex justify-center items-center"
+                      key={list}
+                    >
+                      <div className="flex flex-row justify-between  px-2 w-full">
+                        <div className="flex flex-row space-x-2 items-center ">
+                          <GiHotMeal size={30} color="#18b648" />
+                          <div className="flex flex-col">
+                            <p>{list}</p>
+                            <span>{measure[index]}</span>
+                          </div>
+                        </div>
+                        <div>
+                          <img
+                            src={recipe.strMealThumb}
+                            alt="recipe"
+                            className="max-sm:w-[30px] max-sm:h-[30px] w-[30px] h-[30px] rounded-full"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/*List Recipe Measurement*/}
+            {/* <div className="max-sm:flex-col max-sm:gap-4 flex flex-wrap w-[100%] gap-6">
+              <h1 className="text-[#5c5656] text-[30px]">Measurement</h1>
+              <div className="flex flex-wrap flex-auto gap-4">
+                <YouTube videoId={recipe.strYoutube} />
+              </div>
+            </div> */}
           </div>
         </div>
       </section>

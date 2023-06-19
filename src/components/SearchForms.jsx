@@ -19,6 +19,7 @@ const SearchForms = () => {
   } = useContext(SearchContext);
   const [recipeList, setRecipelist] = useState([]);
 
+  // Refactor context state destructuring
   const {
     selectedIngredient,
     setSelectIngredient,
@@ -80,9 +81,9 @@ const SearchForms = () => {
   return (
     <>
       {toggleSearchForm && (
-        <div className="absolute top-0 bottom-0 -right-[-122px] z-10 w-full flex justify-between max-w-[1340px] px-[248px]  mx-auto items-center">
+        <div className="absolute top-0 -right-[-122px] bg-[#752424] z-10 w-full flex justify-between max-w-[1340px] px-[248px]  mx-auto items-center">
           <div className="flex flex-wrap justify-between items-center w-full flex-shrink">
-            <div className="absolute top-20 w-[76%] pr-[5px] flex justify-end z-50">
+            <div className="absolute top-20 w-[75.6%] pr-[5px] flex justify-end z-50">
               <div className="w-6/12 h-[450px] mt-14 bg-[#000000c9]  rounded-tr-[30px] rounded-br-[30px]">
                 <div className="flex flex-row justify-between items-center">
                   <div className="w-[40%] h-[50px] flex items-center justify-center bg-[#18b648] rounded-br-[20px]">
@@ -92,6 +93,8 @@ const SearchForms = () => {
                     <AiOutlineClose size={30} color="#fff" />
                   </div>
                 </div>
+
+                {/*This div handles rendering of the search form*/}
                 <div className="p-10 mt-[-5px]">
                   {/*Dropdown List*/}
                   <div className="flex flex-row justify-between items-center w-[99%] px-4 h-[45px] bg-[#fff]">
@@ -106,6 +109,8 @@ const SearchForms = () => {
                       onClick={handleFormDropdownToggle}
                     />
                   </div>
+
+                  {/*This div renders list of recipes on the form dropdown */}
                   {toggleDropdown && (
                     <div className="absolute top-[190px] bottom-0 z-50 w-[41.6%] mt-3  h-[250px] bg-[#fff] overflow-y-auto">
                       {recipeList.map((list) => {
@@ -125,7 +130,7 @@ const SearchForms = () => {
                     </div>
                   )}
 
-                  {/*Search form input fields*/}
+                  {/*This div renders my various input fields on the form*/}
                   <div>
                     <input
                       type="text"

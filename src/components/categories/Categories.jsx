@@ -1,47 +1,59 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../Header";
 import Navbar from "../Navbar";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import {
-  FetchRecipeFilter,
-  fetchAllCategories,
-  fetchAllIngredients,
-  fetchAllRecipes,
-  fetchRecipes,
-} from "../../services/api";
-import { AiOutlineSearch } from "react-icons/ai";
-import {
-  selectAllCategories,
-  selectAllIngredients,
-  setAllRecipes,
-} from "../../features/recipeSlice/ingredientSlice";
+import { fetchAllCategories, fetchRecipes } from "../../services/api";
 import Pagination from "../Pagination";
 import SearchForms from "../SearchForms";
-import { SearchContext } from "../../context/Context";
+import Loading from "../Loading";
 
 const Categories = () => {
-  const dispatch = useDispatch();
   const [pageNumber, setPageNumber] = useState(0);
   const [listCategories, setListCategories] = useState([]);
   const [activeCategory, setActiveCategory] = useState("");
   const [recipe, setRecipe] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  //This useEffect Hook fetches categories list of recipes from the API and updates the hook and also dispatch to redux
+  //This useEffect Hook fetches categories list of recipes from the API and updates the local state
   useEffect(() => {
-    fetchAllCategories().then((res) => {
-      setListCategories(res.categories);
-      setActiveCategory(res.categories[0].strCategory);
-    });
+    setLoading(true);
+    try {
+      fetchAllCategories()
+        .then((res) => {
+          setListCategories(res.categories);
+          setActiveCategory(res.categories[0].strCategory);
+        })
+        .catch((error) => {
+          throw new Error(error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } catch (error) {
+      throw new Error(error);
+    }
   }, []);
 
   //This useEffect hook fetches various recipes based on filtering through the category
   useEffect(() => {
-    activeCategory &&
-      fetchRecipes(activeCategory).then((response) => {
-        setRecipe(response.meals);
-      });
+    setLoading(true);
+    try {
+      activeCategory &&
+        fetchRecipes(activeCategory)
+          .then((response) => {
+            setTimeout(() => {
+              setRecipe(response.meals);
+            }, 2000);
+          })
+          .catch((error) => {
+            throw new Error(error);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+    } catch (error) {
+      throw new Error(error);
+    }
   }, [activeCategory]);
 
   //Define the pagination settings for displaying the list ingredients
@@ -97,51 +109,58 @@ const Categories = () => {
       <Header />
       <SearchForms />
 
-      <div className="flex justify-between max-w-[1340px] px-10 mt-[30px] mx-auto items-center">
-        <div className="flex flex-wrap justify-between items-center w-full flex-shrink">
-          <div className="w-[340px]">
-            <h1 className="text-[40px]">Recipes</h1>
-          </div>
-          <div className="mt-3 w-[810px] flex-auto items-center  md:w-[810px] md:flex-auto md:flex md:items-center">
-            <div className="max-sm:flex-row flex flex-wrap w-full items-center gap-6">
-              <h1 className="text-[20px]">Category </h1>
-              <div className="max-sm:w-[74%] w-[88%] border border-b border-l-transparent border-r-transparent border-t-transparent border-[#999]"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <section className="flex justify-between max-w-[1340px] h-full px-10 mx-auto mt-[40px] items-center">
-        {/*Category button*/}
-        <div className="flex flex-wrap flex-shrink w-full h-full gap-10">
-          <div className="relative w-full bg-black md:w-[300px] md:bg-[#4551] md:h-auto">
-            <p className="px-3 pt-6 text-[#605e5e]">Search By:</p>
-            <div className="mx-10 mt-4 flex-col">
-              {listCategories.map((category) => {
-                return (
-                  <div
-                    key={category.idCategory}
-                    className={`w-full h-[40px] bg-[#18b648] flex justify-center items-center rounded-md my-3 ${
-                      activeCategory === category.strCategory && "bg-[#0e5624]"
-                    }`}
-                    onClick={() => setActiveCategory(category.strCategory)}
-                  >
-                    <p className="text-[#fff] tetx-[16px]">
-                      {category.strCategory}
-                    </p>
-                  </div>
-                );
-              })}
+      {loading ? (
+        <Loading />
+      ) : (
+        <section>
+          <div className="flex justify-between max-w-[1340px] px-10 mt-[30px] mx-auto items-center">
+            <div className="flex flex-wrap justify-between items-center w-full flex-shrink">
+              <div className="w-[340px]">
+                <h1 className="text-[40px]">Recipes</h1>
+              </div>
+              <div className="mt-3 w-[810px] flex-auto items-center  md:w-[810px] md:flex-auto md:flex md:items-center">
+                <div className="max-sm:flex-row flex flex-wrap w-full items-center gap-6">
+                  <h1 className="text-[20px]">Category </h1>
+                  <div className="max-sm:w-[74%] w-[88%] border border-b border-l-transparent border-r-transparent border-t-transparent border-[#999]"></div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="max-sm:w-[810px] max-sm:flex max-sm:flex-col max-sm:flex-auto max-sm:gap-6 md:w-[810px] md:flex md:flex-wrap flex-auto  md:gap-6 md:h-full pb-20">
-            {displayCategories}
-          </div>
-        </div>
-      </section>
+          <section className="flex justify-between max-w-[1340px] h-full px-10 mx-auto mt-[40px] items-center">
+            {/*Category button*/}
+            <div className="flex flex-wrap flex-shrink w-full h-full gap-10">
+              <div className="relative w-full bg-black md:w-[300px] md:bg-[#4551] md:h-auto">
+                <p className="px-3 pt-6 text-[#605e5e]">Search By:</p>
+                <div className="mx-10 mt-4 flex-col">
+                  {listCategories.map((category) => {
+                    return (
+                      <div
+                        key={category.idCategory}
+                        className={`w-full h-[40px] bg-[#18b648] flex justify-center items-center rounded-md my-3 ${
+                          activeCategory === category.strCategory &&
+                          "bg-[#0e5624]"
+                        }`}
+                        onClick={() => setActiveCategory(category.strCategory)}
+                      >
+                        <p className="text-[#fff] tetx-[16px]">
+                          {category.strCategory}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
 
-      <Pagination pageCount={pageCount} changePage={changePage} />
+              <div className="max-sm:w-[810px] max-sm:flex max-sm:flex-col max-sm:flex-auto max-sm:gap-6 md:w-[810px] md:flex md:flex-wrap flex-auto  md:gap-6 md:h-full pb-20">
+                {displayCategories}
+              </div>
+            </div>
+          </section>
+
+          <Pagination pageCount={pageCount} changePage={changePage} />
+        </section>
+      )}
     </main>
   );
 };

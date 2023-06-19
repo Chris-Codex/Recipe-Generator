@@ -45,12 +45,12 @@ export const fetchAllCategories = async () => {
     }
 };
 
+//This function handles filtering of the recipes
 export const fetchRecipes = async (activeCategory) => {
     try {
         const response = await axios.get(
             `https://themealdb.com/api/json/v1/1/filter.php?i=${activeCategory}`
         );
-
 
         return response.data
     } catch (error) {
