@@ -124,7 +124,11 @@ const Categories = () => {
           </div>
         </div>
 
-        <section className="flex justify-between max-w-[1340px] h-full px-10 mx-auto mt-[40px] items-center">
+        <motion.section
+          animate={{ y: -10, scale: 1 }}
+          initial={{ scale: 0 }}
+          className="flex justify-between max-w-[1340px] h-full px-10 mx-auto mt-[40px] items-center"
+        >
           {/*Category button*/}
           <div className="flex flex-wrap flex-shrink w-full h-full gap-10">
             <div className="relative w-full bg-black md:w-[300px] md:bg-[#4551] md:h-auto">
@@ -174,7 +178,7 @@ const Categories = () => {
               </div>
             )}
           </div>
-        </section>
+        </motion.section>
 
         {!displayCategories ? null : (
           <Pagination pageCount={pageCount} changePage={changePage} />

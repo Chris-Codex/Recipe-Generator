@@ -9,7 +9,10 @@ import { BiCopyright } from "react-icons/bi";
 
 const Footer = () => {
   return (
-    <div className="flex justify-between max-w-[1340px] px-10 mt-[30px] mx-auto items-center">
+    <div
+      className="flex justify-between max-w-[1340px] px-10 mt-[30px] mx-auto items-center"
+      data-cy="container"
+    >
       <div className="flex flex-wrap bg-[#18b648] px-10 justify-between items-center w-full h-[100px] flex-shrink">
         <div className="flex flex-row gap-3">
           <FaFacebookF size={20} color="#fff" />

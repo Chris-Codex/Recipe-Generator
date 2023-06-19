@@ -6,6 +6,8 @@ import { FaFacebookF } from "react-icons/fa";
 import { BsWhatsapp } from "react-icons/bs";
 import { SearchContext } from "../context/Context";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+
 const Navbar = () => {
   const [toggleHamburger, setToggleHamburger] = useState(false);
   const { handleSearchToggle } = useContext(SearchContext);
@@ -36,13 +38,21 @@ const Navbar = () => {
             </ul>
           </nav>
           <div className="block md:hidden" onClick={handleToggle}>
-            <GiHamburgerMenu size={20} color="#000" />
+            {toggleHamburger ? (
+              <AiOutlineClose size={20} color="#fff" onClick={handleToggle} />
+            ) : (
+              <GiHamburgerMenu size={20} color="#000" />
+            )}
           </div>
         </div>
 
         {/*Mobile View*/}
         {toggleHamburger ? (
-          <header className="fixed top-0 right-0 w-[60%] bg-[#000] px-3 h-full border-r border-r-[#cbcbcb] ease-in-out duration-500 z-50">
+          <motion.header
+            animate={{ x: -194, scale: 1 }}
+            // transition={{ delay: 0.2 }}
+            className="fixed top-0 right-0 w-[60%] bg-[#000] px-3 h-full border-r border-r-[#cbcbcb] ease-in-out duration-500 z-50"
+          >
             <div className="flex flex-row justify-between items-center pt-4 ">
               <h4 className="text-2xl font-bold text-[#18b648] ">Recipes.</h4>
               <AiOutlineClose size={20} color="#fff" onClick={handleToggle} />
@@ -62,7 +72,7 @@ const Navbar = () => {
               <AiOutlineInstagram size={20} color="#fff" />
               <BsWhatsapp size={20} color="#fff" />
             </div>
-          </header>
+          </motion.header>
         ) : null}
       </div>
     </nav>

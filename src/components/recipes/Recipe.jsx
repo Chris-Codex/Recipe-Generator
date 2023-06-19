@@ -14,6 +14,7 @@ import { SearchContext } from "../../context/Context";
 import Footer from "../Footer";
 import Loading from "../Loading";
 import recipeImg from "../../assets/recipe.jpeg";
+import { motion } from "framer-motion";
 
 const Recipe = () => {
   const [pageNumber, setPageNumber] = useState(0);
@@ -93,11 +94,15 @@ const Recipe = () => {
 
       <section className="flex max-w-[1340px] h-full px-10 mx-auto mt-[40px] items-center">
         {/*Category button*/}
-        <div className="flex flex-wrap flex-shrink w-full h-full gap-10">
+        <div className="flex flex-wrap flex-shrink w-full h-full gap-10 ">
           {loading ? (
             <Loading />
           ) : (
-            <div className="max-sm:w-[810px] max-sm:flex max-sm:flex-col max-sm:flex-auto max-sm:gap-6 md:w-[100%] md:flex md:flex-wrap   md:gap-6 md:h-full pb-20">
+            <motion.div
+              animate={{ y: -10, scale: 1 }}
+              initial={{ scale: 0 }}
+              className="max-sm:w-[810px] max-sm:flex max-sm:flex-col max-sm:flex-auto max-sm:gap-6 md:w-[100%] md:flex md:flex-wrap   md:gap-6 md:h-full pb-20"
+            >
               {displaySearchedRecipes ? (
                 displaySearchedRecipes
               ) : (
@@ -116,7 +121,7 @@ const Recipe = () => {
                   </div>
                 </div>
               )}
-            </div>
+            </motion.div>
           )}
         </div>
       </section>
