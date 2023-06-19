@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import {
   selectAllRecipes,
   selectLoading,
-  selectRecipeCategory,
 } from "../../features/recipeSlice/ingredientSlice";
 import Pagination from "../Pagination";
 import SearchForms from "../SearchForms";
@@ -18,10 +17,8 @@ import { motion } from "framer-motion";
 
 const Recipe = () => {
   const [pageNumber, setPageNumber] = useState(0);
-  const getActiveRecipe = useSelector(selectRecipeCategory);
   const getFilteredRecipe = useSelector(selectAllRecipes);
   const { shortenText } = useContext(SearchContext);
-  const [activeRecipe, setActiveRecipe] = useState(getActiveRecipe);
   const loading = useSelector(selectLoading);
 
   //Define the pagination settings for displaying the list ingredients

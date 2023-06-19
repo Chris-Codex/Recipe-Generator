@@ -18,7 +18,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="w-full h-auto">
+    <nav className="w-full h-auto" data-cy="container">
       <div className="flex flex-row justify-between max-w-[1340px] p-10 mx-auto items-center">
         <div className="flex flex-row w-full justify-between items-center">
           <h1 className="text-3xl font-bold text-[#18b648] ">
@@ -27,12 +27,20 @@ const Navbar = () => {
           <nav className="hidden md:flex">
             <ul className="flex flex-row text-[#646464]">
               <li className="p-4">
-                <Link to="/">Home</Link>
+                <Link to="/" data-cy="Home">
+                  Home
+                </Link>
               </li>
               <li className="p-4 cursor-pointer">
-                <Link to="/recipe">Recipe</Link>
+                <Link to="/recipe" data-cy="Recipe">
+                  Recipe
+                </Link>
               </li>
-              <li className="p-4 cursor-pointer" onClick={handleSearchToggle}>
+              <li
+                className="p-4 cursor-pointer"
+                onClick={handleSearchToggle}
+                data-cy="search-recipes"
+              >
                 Search with Parameters
               </li>
             </ul>
