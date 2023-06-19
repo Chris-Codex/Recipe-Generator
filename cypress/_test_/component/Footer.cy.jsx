@@ -15,7 +15,11 @@ describe("Test Footer", () => {
     );
   });
 
+  // Asserts that the footer component is visible and rendered correctly
   it("should test to ensure everything is working", () => {
     cy.get("[data-cy='container']").should("be.visible");
+    cy.contains("Recipe Generator").should("be.visible");
+    cy.contains("2023 R-Generator. Payroc Assessment").should("be.visible");
+    cy.get("[data-cy='icon']").should("be.visible");
   });
 });

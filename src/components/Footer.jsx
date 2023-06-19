@@ -15,18 +15,18 @@ const Footer = () => {
     >
       <div className="flex flex-wrap bg-[#18b648] px-10 justify-between items-center w-full h-[100px] flex-shrink">
         <div className="flex flex-row gap-3">
-          <FaFacebookF size={20} color="#fff" />
-          <FaTwitter size={20} color="#fff" />
-          <FaInstagramSquare size={20} color="#fff" />
-          <ImWhatsapp size={20} color="#fff" />
-          <FaSnapchatGhost size={20} color="#fff" />
+          <FaFacebookF size={20} color="#fff" data-cy="icon" />
+          <FaTwitter size={20} color="#fff" data-cy="icon" />
+          <FaInstagramSquare size={20} color="#fff" data-cy="icon" />
+          <ImWhatsapp size={20} color="#fff" data-cy="icon" />
+          <FaSnapchatGhost size={20} color="#fff" data-cy="icon" />
         </div>
         <div className="flex flex-row gap-2">
-          <GiHotMeal size={24} color="#fff" />
+          <GiHotMeal size={24} color="#fff" data-cy="icon" />
           <p className="text-[#fff] font-bold">Recipe Generator</p>
         </div>
         <div className="flex flex-row gap-1">
-          <BiCopyright size={24} color="#fff" />
+          <BiCopyright size={24} color="#fff" data-cy="icon" />
           <p className="text-[#fff] font-bold">
             2023 R-Generator. Payroc Assessment
           </p>
