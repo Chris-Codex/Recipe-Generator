@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 
 import axios from "axios";
 import Navbar from "../Navbar";
+import Footer from "../Footer";
 
 const RecipeDetail = () => {
   const { id } = useParams();
@@ -87,6 +88,7 @@ const RecipeDetail = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };

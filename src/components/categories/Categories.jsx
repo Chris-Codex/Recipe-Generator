@@ -6,6 +6,8 @@ import { fetchAllCategories, fetchRecipes } from "../../services/api";
 import Pagination from "../Pagination";
 import SearchForms from "../SearchForms";
 import Loading from "../Loading";
+import recipeImg from "../../assets/recipe.jpeg";
+import { motion } from "framer-motion";
 
 const Categories = () => {
   const [pageNumber, setPageNumber] = useState(0);
@@ -41,9 +43,7 @@ const Categories = () => {
       activeCategory &&
         fetchRecipes(activeCategory)
           .then((response) => {
-            setTimeout(() => {
-              setRecipe(response.meals);
-            }, 2000);
+            setRecipe(response.meals);
           })
           .catch((error) => {
             throw new Error(error);
@@ -109,58 +109,77 @@ const Categories = () => {
       <Header />
       <SearchForms />
 
-      {loading ? (
-        <Loading />
-      ) : (
-        <section>
-          <div className="flex justify-between max-w-[1340px] px-10 mt-[30px] mx-auto items-center">
-            <div className="flex flex-wrap justify-between items-center w-full flex-shrink">
-              <div className="w-[340px]">
-                <h1 className="text-[40px]">Recipes</h1>
-              </div>
-              <div className="mt-3 w-[810px] flex-auto items-center  md:w-[810px] md:flex-auto md:flex md:items-center">
-                <div className="max-sm:flex-row flex flex-wrap w-full items-center gap-6">
-                  <h1 className="text-[20px]">Category </h1>
-                  <div className="max-sm:w-[74%] w-[88%] border border-b border-l-transparent border-r-transparent border-t-transparent border-[#999]"></div>
-                </div>
+      <section>
+        <div className="flex justify-between max-w-[1340px] px-10 mt-[30px] mx-auto items-center">
+          <div className="flex flex-wrap justify-between items-center w-full flex-shrink">
+            <div className="w-[340px]">
+              <h1 className="text-[40px]">Recipes</h1>
+            </div>
+            <div className="mt-3 w-[810px] flex-auto items-center  md:w-[810px] md:flex-auto md:flex md:items-center">
+              <div className="max-sm:flex-row flex flex-wrap w-full items-center gap-6">
+                <h1 className="text-[20px]">Category </h1>
+                <div className="max-sm:w-[74%] w-[88%] border border-b border-l-transparent border-r-transparent border-t-transparent border-[#999]"></div>
               </div>
             </div>
           </div>
+        </div>
 
-          <section className="flex justify-between max-w-[1340px] h-full px-10 mx-auto mt-[40px] items-center">
-            {/*Category button*/}
-            <div className="flex flex-wrap flex-shrink w-full h-full gap-10">
-              <div className="relative w-full bg-black md:w-[300px] md:bg-[#4551] md:h-auto">
-                <p className="px-3 pt-6 text-[#605e5e]">Search By:</p>
-                <div className="mx-10 mt-4 flex-col">
-                  {listCategories.map((category) => {
-                    return (
-                      <div
-                        key={category.idCategory}
-                        className={`w-full h-[40px] bg-[#18b648] flex justify-center items-center rounded-md my-3 ${
-                          activeCategory === category.strCategory &&
-                          "bg-[#0e5624]"
-                        }`}
-                        onClick={() => setActiveCategory(category.strCategory)}
-                      >
-                        <p className="text-[#fff] tetx-[16px]">
-                          {category.strCategory}
-                        </p>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div className="max-sm:w-[810px] max-sm:flex max-sm:flex-col max-sm:flex-auto max-sm:gap-6 md:w-[810px] md:flex md:flex-wrap flex-auto  md:gap-6 md:h-full pb-20">
-                {displayCategories}
+        <section className="flex justify-between max-w-[1340px] h-full px-10 mx-auto mt-[40px] items-center">
+          {/*Category button*/}
+          <div className="flex flex-wrap flex-shrink w-full h-full gap-10">
+            <div className="relative w-full bg-black md:w-[300px] md:bg-[#4551] md:h-auto">
+              <p className="px-3 pt-6 text-[#605e5e]">Search By:</p>
+              <div className="mx-10 mt-4 flex-col">
+                {listCategories.map((category) => {
+                  return (
+                    <div
+                      key={category.idCategory}
+                      className={`w-full h-[40px] bg-[#18b648] flex justify-center items-center rounded-md my-3 ${
+                        activeCategory === category.strCategory &&
+                        "bg-[#0e5624]"
+                      }`}
+                      onClick={() => setActiveCategory(category.strCategory)}
+                    >
+                      <p className="text-[#fff] tetx-[16px]">
+                        {category.strCategory}
+                      </p>
+                    </div>
+                  );
+                })}
               </div>
             </div>
-          </section>
 
-          <Pagination pageCount={pageCount} changePage={changePage} />
+            {loading ? (
+              <Loading />
+            ) : (
+              <div className="max-sm:w-[810px] max-sm:flex max-sm:flex-col max-sm:flex-auto max-sm:gap-6 md:w-[810px] md:flex md:flex-wrap flex-auto  md:gap-6 md:h-full pb-20">
+                {displayCategories ? (
+                  displayCategories
+                ) : (
+                  <div className="flex items-center justify-center w-full h-screen">
+                    <div className="relative flex items-center justify-center">
+                      <img
+                        src={recipeImg}
+                        className="w-[50%] h-[50%]"
+                        alt="Not Available"
+                      />
+                    </div>
+                    <div className="absolute px-[370px] pt-[500px] bottom-[-350px] flex justify-center items-center z-50">
+                      <p className="text-[#999] font-bold">
+                        No RECIPES AVAILABLE
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </section>
-      )}
+
+        {!displayCategories ? null : (
+          <Pagination pageCount={pageCount} changePage={changePage} />
+        )}
+      </section>
     </main>
   );
 };

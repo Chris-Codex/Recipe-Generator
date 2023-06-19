@@ -6,6 +6,7 @@ import Navbar from "../Navbar";
 import { GiHotMeal } from "react-icons/gi";
 import YouTube from "react-youtube";
 import SearchForms from "../SearchForms";
+import Footer from "../Footer";
 
 const CategoryDetail = () => {
   const { id } = useParams();
@@ -114,17 +115,10 @@ const CategoryDetail = () => {
                 })}
               </div>
             </div>
-
-            {/*List Recipe Measurement*/}
-            {/* <div className="max-sm:flex-col max-sm:gap-4 flex flex-wrap w-[100%] gap-6">
-              <h1 className="text-[#5c5656] text-[30px]">Measurement</h1>
-              <div className="flex flex-wrap flex-auto gap-4">
-                <YouTube videoId={recipe.strYoutube} />
-              </div>
-            </div> */}
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };

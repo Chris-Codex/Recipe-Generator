@@ -1,6 +1,7 @@
 import React from "react";
 import ReactPaginate from "react-paginate";
 
+//Responsible for paginating through different pages
 const Pagination = ({ pageCount, changePage }) => {
   return (
     <div className="flex justify-between max-w-[480px] px-10  ml-[1030px] mt-[-40px] items-center">

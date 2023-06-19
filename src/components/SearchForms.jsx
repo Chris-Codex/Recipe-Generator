@@ -5,7 +5,12 @@ import { MdArrowDropDown } from "react-icons/md";
 import { fetchFilteredRecipes, fetchRecipeList } from "../services/api";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setRecipeCategory } from "../features/recipeSlice/ingredientSlice";
+import {
+  selectLoading,
+  setLoading,
+  setRecipeCategory,
+} from "../features/recipeSlice/ingredientSlice";
+import { motion } from "framer-motion";
 
 const SearchForms = () => {
   const dispatch = useDispatch();
@@ -45,6 +50,7 @@ const SearchForms = () => {
 
   //This function handles recipe search and dispatch the payload to redux
   const handleSearch = () => {
+    dispatch(setLoading(true));
     try {
       if (
         !selectedIngredient ||
@@ -71,6 +77,12 @@ const SearchForms = () => {
           mealType
         )
       );
+      setSelectIngredient("");
+      setQuantity("");
+      setAvailableCookingTime("");
+      setNumberOfIngredient("");
+      setMealType("");
+      dispatch(setLoading(false));
 
       navigate("/recipe");
     } catch (error) {
@@ -83,10 +95,14 @@ const SearchForms = () => {
       {toggleSearchForm && (
         <div className="absolute top-0 -right-[-122px] bg-[#752424] z-10 w-full flex justify-between max-w-[1340px] px-[248px]  mx-auto items-center">
           <div className="flex flex-wrap justify-between items-center w-full flex-shrink">
-            <div className="absolute top-20 w-[75.6%] pr-[5px] flex justify-end z-50">
-              <div className="w-6/12 h-[450px] mt-14 bg-[#000000c9]  rounded-tr-[30px] rounded-br-[30px]">
+            <motion.div
+              animate={{ x: -754, scale: 1 }}
+              transition={{ delat: 1 }}
+              className="max-sm:flex max-sm:justify-center max-sm:items-center max-sm:w-[83.4%] max-sm:top-[58px] max-sm:-left-[-170.9px] absolute top-20 w-[75.6%] pr-[5px] flex justify-end z-50"
+            >
+              <div className="max-sm:w-[100%] w-6/12 h-[450px] mt-14 bg-[#000000c9]  rounded-tl-[30px] rounded-bl-[30px]">
                 <div className="flex flex-row justify-between items-center">
-                  <div className="w-[40%] h-[50px] flex items-center justify-center bg-[#18b648] rounded-br-[20px]">
+                  <div className="max-sm:flex max-sm:justify-center max-sm:items-center max-sm:w-[50%] w-[40%] h-[50px] flex items-center justify-center bg-[#18b648] rounded-br-[20px]">
                     <p className="text-[#fff]">Search for your Recipes</p>
                   </div>
                   <div className="px-6 pt-4" onClick={handleSearchToggle}>
@@ -171,7 +187,7 @@ const SearchForms = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       )}

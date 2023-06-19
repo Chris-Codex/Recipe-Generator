@@ -19,18 +19,19 @@ const Navbar = () => {
     <nav className="w-full h-auto">
       <div className="flex flex-row justify-between max-w-[1340px] p-10 mx-auto items-center">
         <div className="flex flex-row w-full justify-between items-center">
-          <h1 className="text-3xl font-bold text-[#18b648] ">Recipes.</h1>
+          <h1 className="text-3xl font-bold text-[#18b648] ">
+            <Link to="/">Recipes.</Link>
+          </h1>
           <nav className="hidden md:flex">
             <ul className="flex flex-row text-[#646464]">
               <li className="p-4">
                 <Link to="/">Home</Link>
               </li>
-              <li className="p-4">
+              <li className="p-4 cursor-pointer">
                 <Link to="/recipe">Recipe</Link>
               </li>
-              <li className="p-4">Contact</li>
-              <li className="p-4" onClick={handleSearchToggle}>
-                Search
+              <li className="p-4 cursor-pointer" onClick={handleSearchToggle}>
+                Search with Parameters
               </li>
             </ul>
           </nav>

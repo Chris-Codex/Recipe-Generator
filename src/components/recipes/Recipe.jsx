@@ -4,12 +4,16 @@ import Navbar from "../Navbar";
 import { Link } from "react-router-dom";
 import {
   selectAllRecipes,
+  selectLoading,
   selectRecipeCategory,
 } from "../../features/recipeSlice/ingredientSlice";
 import Pagination from "../Pagination";
 import SearchForms from "../SearchForms";
 import { useSelector } from "react-redux";
 import { SearchContext } from "../../context/Context";
+import Footer from "../Footer";
+import Loading from "../Loading";
+import recipeImg from "../../assets/recipe.jpeg";
 
 const Recipe = () => {
   const [pageNumber, setPageNumber] = useState(0);
@@ -17,6 +21,7 @@ const Recipe = () => {
   const getFilteredRecipe = useSelector(selectAllRecipes);
   const { shortenText } = useContext(SearchContext);
   const [activeRecipe, setActiveRecipe] = useState(getActiveRecipe);
+  const loading = useSelector(selectLoading);
 
   //Define the pagination settings for displaying the list ingredients
   const listRecipesPerPage = 12;
@@ -57,8 +62,8 @@ const Recipe = () => {
                 </p>
               </div>
 
-              <div className="absolute top-20 bottom-0 w-full flex items-center justify-center h-[40px] opacity-0 group-hover:opacity-100">
-                <div className="flex justify-center items-center w-8/12 h-[40px] bg-[#18b648]  cursor-pointer rounded-sm">
+              <div className="absolute top-20 bottom-0 w-full flex items-center justify-center h-[50px] opacity-0 group-hover:opacity-100">
+                <div className="flex justify-center items-center w-5/12 h-[40px] bg-[#18b648]  cursor-pointer rounded-sm">
                   <Link to={`/recipe/${idMeal}`}>
                     <p className="text-[#fff] font-bold">View More</p>
                   </Link>
@@ -76,52 +81,50 @@ const Recipe = () => {
       <SearchForms />
 
       <div className="flex justify-between max-w-[1340px] px-10 mt-[30px] mx-auto items-center">
-        <div className="flex flex-wrap justify-between items-center w-full flex-shrink">
-          <div className="w-[340px]">
-            <h1 className="text-[40px]">Categories</h1>
-          </div>
+        <div className="flex flex-wrap items-center w-full flex-shrink">
           <div className="mt-3 w-[810px] flex-auto items-center  md:w-[810px] md:flex-auto md:flex md:items-center">
             <div className="max-sm:flex-row flex flex-wrap w-full items-center gap-6">
-              <h1 className="text-[20px]">Recipes </h1>
-              <div className="max-sm:w-[74%] w-[88%] border border-b border-l-transparent border-r-transparent border-t-transparent border-[#999]"></div>
+              <h1 className="text-[30px] text-[#999]">Recipes</h1>
+              <div className="max-sm:w-[67.9%] w-[88.9%] border border-b border-l-transparent border-r-transparent border-t-transparent border-[#999]"></div>
             </div>
           </div>
         </div>
       </div>
 
-      <section className="flex justify-between max-w-[1340px] h-full px-10 mx-auto mt-[40px] items-center">
+      <section className="flex max-w-[1340px] h-full px-10 mx-auto mt-[40px] items-center">
         {/*Category button*/}
         <div className="flex flex-wrap flex-shrink w-full h-full gap-10">
-          <div className="relative w-full bg-black md:w-[300px] md:bg-[#4551] md:h-auto">
-            <p className="px-3 pt-6 text-[#605e5e]">Search By:</p>
-            <div className="mx-10 mt-4 flex-col">
-              {getFilteredRecipe.map((recipe) => {
-                return (
-                  <div
-                    key={recipe.idMeal}
-                    className={`w-full h-[40px] bg-[#18b648] flex justify-center items-center rounded-md my-3 ${
-                      activeRecipe === recipe.strMeal && "bg-[#44985d]"
-                    }`}
-                    onClick={() => {
-                      setActiveRecipe(recipe.strMeal);
-                    }}
-                  >
-                    <p className="text-[#fff] tetx-[16px]">
-                      {shortenText(recipe.strMeal, 20)}
+          {loading ? (
+            <Loading />
+          ) : (
+            <div className="max-sm:w-[810px] max-sm:flex max-sm:flex-col max-sm:flex-auto max-sm:gap-6 md:w-[100%] md:flex md:flex-wrap   md:gap-6 md:h-full pb-20">
+              {displaySearchedRecipes ? (
+                displaySearchedRecipes
+              ) : (
+                <div className="flex items-center justify-center w-full h-screen">
+                  <div className="relative flex items-center justify-center">
+                    <img
+                      src={recipeImg}
+                      className="w-[50%] h-[50%]"
+                      alt="Not Available"
+                    />
+                  </div>
+                  <div className="absolute px-[370px] pt-[500px] bottom-[-350px] flex justify-center items-center z-50">
+                    <p className="text-[#999] font-bold">
+                      No RECIPES AVAILABLE
                     </p>
                   </div>
-                );
-              })}
+                </div>
+              )}
             </div>
-          </div>
-
-          <div className="max-sm:w-[810px] max-sm:flex max-sm:flex-col max-sm:flex-auto max-sm:gap-6 md:w-[810px] md:flex md:flex-wrap flex-auto  md:gap-6 md:h-full pb-20">
-            {displaySearchedRecipes}
-          </div>
+          )}
         </div>
       </section>
 
-      <Pagination pageCount={pageCount} changePage={changePage} />
+      {!displaySearchedRecipes ? null : (
+        <Pagination pageCount={pageCount} changePage={changePage} />
+      )}
+      <Footer />
     </main>
   );
 };
