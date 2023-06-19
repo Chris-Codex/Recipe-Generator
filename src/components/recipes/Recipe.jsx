@@ -47,13 +47,13 @@ const Recipe = () => {
 
         return (
           <aside
-            className="w-[100%] relative md:w-[30%] flex-auto h-[200px] rounded-[20px] group"
+            className="w-[100%] relative md:w-[30%] flex-auto h-[250px] rounded-[20px] group"
             key={idMeal}
           >
             <img
               src={strMealThumb}
-              alt="yam"
-              className="w-full h-[200px] object-cover rounded-[20px] md:w-full md:h-[200px] md:object-cover md:rounded-[20px]"
+              alt="Meal"
+              className="w-full h-[250px] object-cover rounded-[20px] md:w-full md:h-[250px] md:object-cover md:rounded-[20px]"
             />
             <div className="absolute top-0 bottom-0 inset-0 bg-[#5f68687c] opacity-50 rounded-[15px] shadow-lg group-hover:opacity-100"></div>
             <div className="absolute top-0 bottom-0 w-full flex-col justify-center items-center opacity-100 ">
@@ -63,7 +63,7 @@ const Recipe = () => {
                 </p>
               </div>
 
-              <div className="absolute top-20 bottom-0 w-full flex items-center justify-center h-[50px] opacity-0 group-hover:opacity-100">
+              <div className="absolute top-[40%]  w-full flex items-center justify-center h-[50px] opacity-0 group-hover:opacity-100">
                 <div className="flex justify-center items-center w-5/12 h-[40px] bg-[#18b648]  cursor-pointer rounded-sm">
                   <Link to={`/recipe/${idMeal}`}>
                     <p className="text-[#fff] font-bold">View More</p>
