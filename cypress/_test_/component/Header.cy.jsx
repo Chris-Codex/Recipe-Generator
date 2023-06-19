@@ -5,6 +5,7 @@ import { SearchProvider } from "../../../src/context/Context";
 import Header from "../../../src/components/Header";
 
 describe("Header.cy.jsx", () => {
+  //Ensure the component mounts correctly
   beforeEach(() => {
     mount(
       <Provider store={store}>
