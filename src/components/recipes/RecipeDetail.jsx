@@ -18,7 +18,7 @@ const RecipeDetail = () => {
         const response = await axios.get(
           `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
         );
-        console.log("DETAILS", response);
+
         setRcipe(response.data.meals[0]);
 
         Object.keys(response.data.meals[0]).forEach((key) => {
@@ -45,7 +45,7 @@ const RecipeDetail = () => {
           }
         });
       } catch (error) {
-        throw new Error("Failed to fetch recipe");
+        console.log(error);
       }
     };
 
@@ -59,7 +59,7 @@ const RecipeDetail = () => {
         <div className="flex flex-row justify-between max-w-[1340px] p-10 mx-auto items-center">
           <div className="max-sm:flex-col flex flex-wrap w-[100%] gap-2">
             <div className="max-sm:w-[100%] flex-auto h-[500px] bg-[#ebeede4e] w-[45%] rounded-lg flex justify-center items-center">
-              <div className="flex justify-center items-center ">
+              <div className="flex justify-center items-center " data-cy="ing">
                 <img
                   src={recipe.strMealThumb}
                   alt="recipe"
@@ -72,7 +72,7 @@ const RecipeDetail = () => {
                   return (
                     <div className="absolute top-50 bottom-0 " key={list}>
                       <p>{list}</p>
-                      <span>{measure[index]}</span>
+                      <span data-cy="measure">{measure[index]}</span>
                     </div>
                   );
                 })}

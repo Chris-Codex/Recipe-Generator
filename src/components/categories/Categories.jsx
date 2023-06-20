@@ -168,7 +168,7 @@ const Categories = () => {
                         alt="Not Available"
                       />
                     </div>
-                    <div className="absolute px-[370px] pt-[500px] bottom-[-350px] flex justify-center items-center z-50">
+                    <div className="absolute px-[370px] pt-[500px] bottom-[450px] flex justify-center items-center z-50">
                       <p className="text-[#999] font-bold">
                         No RECIPES AVAILABLE
                       </p>

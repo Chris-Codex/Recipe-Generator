@@ -23,6 +23,7 @@ const SearchForms = () => {
     handleFormDropdownToggle,
   } = useContext(SearchContext);
   const [recipeList, setRecipelist] = useState([]);
+  const [error, setError] = useState(false);
 
   // Refactor context state destructuring
   const {
@@ -58,33 +59,35 @@ const SearchForms = () => {
         !availableCookingTime ||
         !numberOfIngredient ||
         !mealType
-      )
-        return;
-      fetchFilteredRecipes(
-        selectedIngredient,
-        quantity,
-        availableCookingTime,
-        numberOfIngredient,
-        mealType
-      );
-
-      dispatch(
+      ) {
+        setError(true);
+      } else {
         fetchFilteredRecipes(
           selectedIngredient,
           quantity,
           availableCookingTime,
           numberOfIngredient,
           mealType
-        )
-      );
-      setSelectIngredient("");
-      setQuantity("");
-      setAvailableCookingTime("");
-      setNumberOfIngredient("");
-      setMealType("");
-      dispatch(setLoading(false));
+        );
 
-      navigate("/recipe");
+        dispatch(
+          fetchFilteredRecipes(
+            selectedIngredient,
+            quantity,
+            availableCookingTime,
+            numberOfIngredient,
+            mealType
+          )
+        );
+        setSelectIngredient("");
+        setQuantity("");
+        setAvailableCookingTime("");
+        setNumberOfIngredient("");
+        setMealType("");
+        dispatch(setLoading(false));
+
+        navigate("/recipe");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -96,11 +99,11 @@ const SearchForms = () => {
         <div className="absolute top-0 -right-[-122px] bg-[#752424] z-10 w-full flex justify-between max-w-[1340px] px-[248px]  mx-auto items-center">
           <div className="flex flex-wrap justify-between items-center w-full flex-shrink">
             <motion.div
-              animate={{ x: -754, scale: 1 }}
+              animate={{ x: 4, scale: 1 }}
               transition={{ delat: 1 }}
-              className="max-sm:flex max-sm:justify-center max-sm:items-center max-sm:w-[83.4%] max-sm:top-[58px] max-sm:-left-[-170.9px] absolute top-20 w-[75.6%] pr-[5px] flex justify-end z-50"
+              className="max-sm:flex max-sm:justify-center max-sm:items-center max-sm:w-10/12 max-sm:object-cover max-sm:top-[58px] max-sm:-left-[-165.9px] absolute top-20 w-[75.6%] pr-[5px] flex justify-end z-50"
             >
-              <div className="max-sm:w-[100%] w-6/12 h-[450px] mt-14 bg-[#000000c9]  rounded-tl-[30px] rounded-bl-[30px]">
+              <div className="max-sm:w-full max-sm:object-cover w-6/12 h-[570px] mt-14 bg-[#000000ea]  rounded-tr-[30px] rounded-br-[30px]">
                 <div className="flex flex-row justify-between items-center">
                   <div className="max-sm:flex max-sm:justify-center max-sm:items-center max-sm:w-[50%] w-[40%] h-[50px] flex items-center justify-center bg-[#18b648] rounded-br-[20px]">
                     <p className="text-[#fff]">Search for your Recipes</p>
@@ -111,7 +114,7 @@ const SearchForms = () => {
                 </div>
 
                 {/*This div handles rendering of the search form*/}
-                <div className="p-10 mt-[-5px]">
+                <div className="p-10 mt-[-17px]">
                   {/*Dropdown List*/}
                   <div className="flex flex-row justify-between items-center w-[99%] px-4 h-[45px] bg-[#fff]">
                     <p>
@@ -123,12 +126,13 @@ const SearchForms = () => {
                       size={40}
                       color="#18b648"
                       onClick={handleFormDropdownToggle}
+                      data-cy="toggleList"
                     />
                   </div>
 
                   {/*This div renders list of recipes on the form dropdown */}
                   {toggleDropdown && (
-                    <div className="absolute top-[190px] bottom-0 z-50 w-[41.6%] mt-3  h-[250px] bg-[#fff] overflow-y-auto">
+                    <div className="absolute top-[190px] bottom-0 z-50 w-[41.6%] mt-3  h-[284px] bg-[#fff] overflow-y-auto">
                       {recipeList.map((list) => {
                         return (
                           <div
@@ -150,33 +154,63 @@ const SearchForms = () => {
                   <div>
                     <input
                       type="text"
-                      className="outline-none w-[99%] px-2 mt-4 h-[45px] bg-[#fff]"
+                      className={`${
+                        error && quantity.length <= 0 ? "mt-4" : ""
+                      } outline-none w-[99%] px-2 mt-6 h-[45px] bg-[#fff]`}
                       placeholder="Enter quantity"
                       value={quantity}
                       onChange={(e) => setQuantity(e.target.value)}
                     />
+                    {error && quantity.length <= 0 ? (
+                      <label className="text-[#fb4c4c] text-[13px]">
+                        Quantity is required
+                      </label>
+                    ) : (
+                      ""
+                    )}
                     <input
                       type="text"
-                      className="outline-none w-[99%] px-2 mt-4 h-[45px] bg-[#fff]"
+                      className="outline-none w-[99%] px-2 mt-6 h-[45px] bg-[#fff]"
                       placeholder="Enter Available cooking time"
                       value={availableCookingTime}
                       onChange={(e) => setAvailableCookingTime(e.target.value)}
                     />
+                    {error && availableCookingTime <= 0 ? (
+                      <label className="text-[#ff4d4d] text-[13px]">
+                        Cooking time is required
+                      </label>
+                    ) : (
+                      ""
+                    )}
                     <input
                       type="text"
-                      className="outline-none w-[99%] px-2 mt-4 h-[45px] bg-[#fff]"
+                      className="outline-none w-[99%] px-2 mt-6 h-[45px] bg-[#fff]"
                       placeholder="Enter Number of ingredients"
                       value={numberOfIngredient}
                       onChange={(e) => setNumberOfIngredient(e.target.value)}
                     />
+                    {error && numberOfIngredient <= 0 ? (
+                      <label className="text-[#ff4d4d] text-[13px]">
+                        Number of ingredients are required
+                      </label>
+                    ) : (
+                      ""
+                    )}
                     <input
                       type="text"
-                      className="outline-none w-[99%] px-2 mt-4 h-[45px] bg-[#fff]"
+                      className="outline-none w-[99%] px-2 mt-6 h-[45px] bg-[#fff]"
                       placeholder="Enter meal type"
                       value={mealType}
                       onChange={(e) => setMealType(e.target.value)}
                     />
-                    <div className=" flex items-center justify-center w-[99%] mt-4">
+                    {error && mealType <= 0 ? (
+                      <label className="text-[#ff4d4d] text-[13px]">
+                        Meal type is required
+                      </label>
+                    ) : (
+                      ""
+                    )}
+                    <div className=" flex items-center justify-center w-[99%] mt-6">
                       <button
                         onClick={handleSearch}
                         className="bg-[#18b648] flex items-center justify-center text-[#fff] h-[40px] w-[29%]"

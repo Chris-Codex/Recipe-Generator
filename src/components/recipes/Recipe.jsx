@@ -35,42 +35,7 @@ const Recipe = () => {
   };
 
   //   //This logic helps render list of ingredients based on pagi9nation
-  const displaySearchedRecipes =
-    getFilteredRecipe &&
-    getFilteredRecipe
-      .slice(nPagesVisited, nPagesVisited + listRecipesPerPage)
-      ?.map((list) => {
-        const { idMeal, strMeal, strMealThumb } = list;
-
-        return (
-          <aside
-            className="w-[100%] relative md:w-[30%] flex-auto h-[250px] rounded-[20px] group"
-            key={idMeal}
-          >
-            <img
-              src={strMealThumb}
-              alt="Meal"
-              className="w-full h-[250px] object-cover rounded-[20px] md:w-full md:h-[250px] md:object-cover md:rounded-[20px]"
-            />
-            <div className="absolute top-0 bottom-0 inset-0 bg-[#5f68687c] opacity-50 rounded-[15px] shadow-lg group-hover:opacity-100"></div>
-            <div className="absolute top-0 bottom-0 w-full flex-col justify-center items-center opacity-100 ">
-              <div className="absolute top-0 bottom-0 flex justify-center w-8/12 h-[40px] items-center bg-[#18b648] rounded-br-[30px]">
-                <p className="text-[#fff] text-[15px] font-bold ">
-                  {shortenText(strMeal, 20)}
-                </p>
-              </div>
-
-              <div className="absolute top-[40%]  w-full flex items-center justify-center h-[50px] opacity-0 group-hover:opacity-100">
-                <div className="flex justify-center items-center w-5/12 h-[40px] bg-[#18b648]  cursor-pointer rounded-sm">
-                  <Link to={`/recipe/${idMeal}`}>
-                    <p className="text-[#fff] font-bold">View More</p>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </aside>
-        );
-      });
+  const displaySearchedRecipes = "";
 
   return (
     <main>
@@ -99,9 +64,50 @@ const Recipe = () => {
               animate={{ y: -10, scale: 1 }}
               initial={{ scale: 0 }}
               className="max-sm:w-[810px] max-sm:flex max-sm:flex-col max-sm:flex-auto max-sm:gap-6 md:w-[100%] md:flex md:flex-wrap   md:gap-6 md:h-full pb-20"
+              data-cy="recipe-container"
             >
-              {displaySearchedRecipes ? (
-                displaySearchedRecipes
+              {getFilteredRecipe ? (
+                getFilteredRecipe
+                  .slice(nPagesVisited, nPagesVisited + listRecipesPerPage)
+                  ?.map((list) => {
+                    const { idMeal, strMeal, strMealThumb } = list;
+
+                    return (
+                      <aside
+                        className="w-[100%] relative md:w-[30%] flex-auto h-[250px] rounded-[20px] group"
+                        key={idMeal}
+                        data-cy="aside"
+                      >
+                        <img
+                          data-cy="aside"
+                          src={strMealThumb}
+                          alt="Meal"
+                          className="w-full h-[250px] object-cover rounded-[20px] md:w-full md:h-[250px] md:object-cover md:rounded-[20px]"
+                        />
+                        <div className="absolute top-0 bottom-0 inset-0 bg-[#5f68687c] opacity-50 rounded-[15px] shadow-lg group-hover:opacity-100"></div>
+                        <div className="absolute top-0 bottom-0 w-full flex-col justify-center items-center opacity-100 ">
+                          <div className="absolute top-0 bottom-0 flex justify-center w-8/12 h-[40px] items-center bg-[#18b648] rounded-br-[30px]">
+                            <p className="text-[#fff] text-[15px] font-bold ">
+                              {shortenText(strMeal, 20)}
+                            </p>
+                          </div>
+
+                          <div className="absolute top-[40%]  w-full flex items-center justify-center h-[50px] opacity-0 group-hover:opacity-100">
+                            <div className="flex justify-center items-center w-5/12 h-[40px] bg-[#18b648]  cursor-pointer rounded-sm">
+                              <Link to={`/recipe/${idMeal}`}>
+                                <p
+                                  className="text-[#fff] font-bold"
+                                  data-cy="View-More"
+                                >
+                                  View More
+                                </p>
+                              </Link>
+                            </div>
+                          </div>
+                        </div>
+                      </aside>
+                    );
+                  })
               ) : (
                 <div className="flex items-center justify-center w-full h-screen">
                   <div className="relative flex items-center justify-center">

@@ -1,0 +1,26 @@
+{
+    "meals": [
+        {
+            "idIngredient": "1",
+            "strDescription": "This is chicken",
+            "strIngredient": "Chicken"      
+        },
+
+         {
+            "idIngredient": "2",
+            "strDescription": "This is pork",
+            "strIngredient": "Pork"
+        },
+
+         {
+            "idIngredient": "3",
+            "strDescription": "This is beef",
+            "strIngredient": "Beef"
+        }
+    ]
+}
+
+
+
+
+

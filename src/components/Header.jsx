@@ -7,14 +7,14 @@ const Header = () => {
       className="flex justify-between max-w-[1340px] px-10 mx-auto items-center overflow-hidden"
       data-cy="container"
     >
-      <div className="relative flex w-full h-[450px] rounded-[30px]">
+      <div className="relative flex w-full h-[570px] rounded-[30px]">
         <video
           src={`${recipeVideo}`}
           autoPlay
           loop
           muted
           alt="recipeVideo"
-          className="w-full object-cover h-[450px]  rounded-[30px]"
+          className="w-full object-cover h-[570px]  rounded-[30px]"
         />
         <div
           className="absolute w-auto h-auto inset-0 bg-black opacity-50 rounded-[30px]"

@@ -1,11 +1,45 @@
 import { mount } from "cypress/react18";
 import Recipe from "../../../../src/components/recipes/Recipe";
-import { Provider, useSelector } from "react-redux";
+import { Provider } from "react-redux";
 import { SearchProvider } from "../../../../src/context/Context";
 import { BrowserRouter } from "react-router-dom";
 import { store } from "../../../../src/features/store";
 
-describe("Recipe.cy.jsx", () => {
+describe("Test recipe component", () => {
+  beforeEach(() => {
+    //Define a mock recipe array
+    const fetchFiltereedRecipes = [
+      {
+        idMeal: 1,
+        strMeal: "Chicken",
+        strMealThumb: "Chicken.jpeg",
+      },
+      {
+        id: 2,
+        strMeal: "Salad",
+        strMealThumb: "salad.jpeg",
+      },
+      {
+        id: 3,
+        strMeal: "Pork",
+        strMealThumb: "Pork.jpeg",
+      },
+    ];
+
+    mount(
+      <Provider store={store}>
+        <SearchProvider>
+          <BrowserRouter>
+            <Recipe fetchFiltereedRecipes={fetchFiltereedRecipes} />
+          </BrowserRouter>
+        </SearchProvider>
+      </Provider>
+    );
+  });
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  //Test case to test pagination
   it("should calculate the listRecipesPerPage and nPageVisited ", () => {
     mount(
       <Provider store={store}>
@@ -33,7 +67,18 @@ describe("Recipe.cy.jsx", () => {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //Defined a mock array
-    const getAllRecipes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const getAllRecipes = [
+      "Chicken",
+      "Salad",
+      "Pasta",
+      "Fries",
+      "Chicken Curry",
+      "Beans",
+      "Bread",
+      "Pork",
+      "Yam",
+      "Rice",
+    ];
 
     //Performs the calculation to get expected page count
     const pageCount = getAllRecipes
