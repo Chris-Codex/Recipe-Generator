@@ -13,14 +13,17 @@ export const SearchProvider = ({ children }) => {
     const [toggleDropdown, setToggleDropdown] = useState(false);
 
 
+    //This function toggles the state of toggleSearchForm variable between true and false.
     const handleSearchToggle = () => {
         setToggleSearch((prevState) => !prevState);
     };
 
+    //This function toggles the state of toggleDropdown variable between true and false.
     const handleFormDropdownToggle = () => {
         setToggleDropdown((prevState) => !prevState);
     };
 
+    //This is a helper function that slice text
     const shortenText = (text, num) => {
         if (text.length > num) {
             return text.slice(0, num) + "..."
@@ -44,7 +47,8 @@ export const SearchProvider = ({ children }) => {
         toggleSearchForm,
         handleSearchToggle,
         toggleDropdown, setToggleDropdown,
-        handleFormDropdownToggle
+        handleFormDropdownToggle,
+        setToggleSearch
     }
 
     return <SearchContext.Provider value={value}>

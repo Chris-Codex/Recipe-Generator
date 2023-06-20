@@ -29,18 +29,18 @@ const Navbar = () => {
           </h1>
           <nav className="hidden md:flex">
             <ul className="flex flex-row text-[#fff]">
-              <li className="p-4">
+              <li className="p-4 hover:text-[#18b648]">
                 <Link to="/" data-cy="Home">
                   Home
                 </Link>
               </li>
-              <li className="p-4 cursor-pointer">
+              <li className="p-4 cursor-pointer hover:text-[#18b648]">
                 <Link to="/recipe" data-cy="Recipe">
                   Recipe
                 </Link>
               </li>
               <li
-                className="p-4 cursor-pointer"
+                className="p-4 cursor-pointer hover:text-[#18b648]"
                 onClick={handleSearchToggle}
                 data-cy="search-recipes"
               >

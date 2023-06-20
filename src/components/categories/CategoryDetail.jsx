@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
 import axios from "axios";
 import Navbar from "../Navbar";
 import { GiHotMeal } from "react-icons/gi";
-import YouTube from "react-youtube";
 import SearchForms from "../SearchForms";
 import Footer from "../Footer";
 import Header from "../Header";
@@ -22,10 +20,9 @@ const CategoryDetail = () => {
         const response = await axios.get(
           `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
         );
-        console.log("DETAILS", response);
-        console.log("DET DT", response.data.meals[0]);
         setRcipe(response.data.meals[0]);
 
+        //This code iterates over the keys of an object and extracts specific value based on search name and updates the ingredient and measure
         Object.keys(response.data.meals[0]).forEach((key) => {
           if (
             key.includes("strIngredient") &&

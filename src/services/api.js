@@ -14,7 +14,7 @@ export const fetchRecipeList = async () => {
     }
 };
 
-//This function helps fetch and fileter recipes based on the parameteers passed through the form
+//This function helps fetch and fileter recipes based on the parameters passed through the form
 export const fetchFilteredRecipes = createAsyncThunk('listRecipes/fetchFilteredRecipes', async (selectedIngredient, quantity, availableCookingTime, numberOfIngredient, mealType) => {
     try {
         const response = await axios.get(`https://themealdb.com/api/json/v1/1/filter.php`,

@@ -3,10 +3,9 @@ import { AiOutlineClose } from "react-icons/ai";
 import { SearchContext } from "../context/Context";
 import { MdArrowDropDown } from "react-icons/md";
 import { fetchFilteredRecipes, fetchRecipeList } from "../services/api";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
-  selectLoading,
   setLoading,
   setRecipeCategory,
 } from "../features/recipeSlice/ingredientSlice";
@@ -37,6 +36,7 @@ const SearchForms = () => {
     setNumberOfIngredient,
     mealType,
     setMealType,
+    setToggleSearch,
   } = useContext(SearchContext);
 
   //The useEffect hook makes an API call to fetch list of ingredients and sets it to local state
@@ -53,6 +53,7 @@ const SearchForms = () => {
   const handleSearch = () => {
     dispatch(setLoading(true));
     try {
+      //Checks if input fields are empty when trying to search for recipes
       if (
         !selectedIngredient ||
         !quantity ||
@@ -62,6 +63,7 @@ const SearchForms = () => {
       ) {
         setError(true);
       } else {
+        //Pass form state to fetchFilteredRecipes function as arguments to enable make API call
         fetchFilteredRecipes(
           selectedIngredient,
           quantity,
@@ -70,6 +72,7 @@ const SearchForms = () => {
           mealType
         );
 
+        //Dispatches the search form parameters to redux
         dispatch(
           fetchFilteredRecipes(
             selectedIngredient,
@@ -79,6 +82,8 @@ const SearchForms = () => {
             mealType
           )
         );
+
+        //Clear state after search
         setSelectIngredient("");
         setQuantity("");
         setAvailableCookingTime("");
@@ -86,7 +91,9 @@ const SearchForms = () => {
         setMealType("");
         dispatch(setLoading(false));
 
+        //Navigates to the recipe page
         navigate("/recipe");
+        setToggleSearch(false);
       }
     } catch (error) {
       console.log(error);
@@ -103,7 +110,13 @@ const SearchForms = () => {
               transition={{ delay: 0 }}
               className="max-sm:flex max-sm:justify-center max-sm:items-center max-sm:w-10/12 max-sm:object-cover max-sm:top-[22%] max-sm:-left-[-8.9px] absolute top-[190px] w-[75.6%] -left-[-210px] flex justify-center"
             >
-              <div className="max-sm:w-full max-sm:object-cover max-sm w-6/12 h-[570px] mt-14 bg-[#000000ea]  rounded-tr-[30px] rounded-br-[30px]">
+              <div
+                className={`max-sm:w-full max-sm:object-cover max-sm  ${
+                  error
+                    ? "w-6/12 h-[570px] mt-14 bg-[#000000ea]  rounded-tr-[30px] rounded-br-[30px]"
+                    : "w-6/12 h-[470px] mt-14 bg-[#000000ea]  rounded-tr-[30px] rounded-br-[30px]"
+                }`}
+              >
                 <div className="flex flex-row justify-between items-center">
                   <div className="max-sm:flex max-sm:justify-center max-sm:items-center max-sm:w-[50%] w-[40%] h-[50px] flex items-center justify-center bg-[#18b648] rounded-br-[20px]">
                     <p className="text-[#fff]">Search for your Recipes</p>
