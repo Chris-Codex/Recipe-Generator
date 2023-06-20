@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchAllCategories, fetchAllIngredients, fetchFilteredRecipes } from "../../services/api";
+import { fetchFilteredRecipes } from "../../services/api";
 
 
 const initialState = {

@@ -10,7 +10,7 @@ describe('Test all API', () => {
       fixture: 'recipe.json'
     }).as('fetchRecipeList')
 
-    fetchRecipeList().then((interception) => {
+    fetchRecipeList('fetchRecipeList').then((interception) => {
       expect(interception.response.statusCode).to.be(200)
       expect(interception.response.body).to.have.property('meals')
     })
@@ -46,8 +46,9 @@ describe('Test all API', () => {
       fixture: 'category.json'
     }).as('fetchRecipeList')
 
+
     fetchAllCategories().then((interception) => {
-      expect(interception.response.statusCode).to.be(200)
+      expect(interception).to.be(200)
       expect(interception.response.body).to.have.property('meals')
     })
   })
