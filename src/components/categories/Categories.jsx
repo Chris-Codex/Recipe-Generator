@@ -131,7 +131,7 @@ const Categories = () => {
         >
           {/*Category button*/}
           <div className="flex flex-wrap flex-shrink w-full h-full gap-10">
-            <div className="relative w-full bg-black md:w-[300px] md:bg-[#4551] md:h-auto">
+            <div className="relative w-full  md:w-[300px] md:bg-[#4551] md:h-auto">
               <p className="px-3 pt-6 text-[#605e5e]">Search By:</p>
               <div className="mx-10 mt-4 flex-col">
                 {listCategories.map((category) => {

@@ -73,10 +73,23 @@ const Navbar = () => {
               />
             </div>
             <ul className="flex-col pt-[10px] text-[#646464] text-[15px] uppercase">
-              <li className="p-4  border-b border-b-[#cbcbcb29]">Home</li>
-              <li className="p-4 border-b  border-b-[#cbcbcb29]">Recipe</li>
-              <li className="p-4 border-b  border-b-[#cbcbcb29]">Contact</li>
-              <li className="p-4 border-b  border-b-[#cbcbcb29]">Search</li>
+              <li className="p-4  border-b border-b-[#cbcbcb29]">
+                <Link to="/" data-cy="Home">
+                  Home
+                </Link>
+              </li>
+              <li className="p-4 border-b  border-b-[#cbcbcb29]">
+                <Link to="/recipe" data-cy="Recipe">
+                  Recipe
+                </Link>
+              </li>
+              <li
+                className="p-4 cursor-pointer hover:text-[#18b648]"
+                onClick={handleSearchToggle}
+                data-cy="search-recipes"
+              >
+                Search Recipes
+              </li>
             </ul>
             <div className="w-full h-[40px] mt-10  bg-[#18b648] rounded-full">
               <p className="text-[#fff] text-center pt-2">Sign up</p>
