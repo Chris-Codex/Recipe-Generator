@@ -47,7 +47,7 @@ const SearchForms = () => {
         dispatch(setRecipeCategory(ingredient[0].strIngredient));
       })
       .catch((error) => console.log("RECIPE LIST ERROR:", error));
-  }, []);
+  }, [dispatch]);
 
   //This function handles recipe search and dispatch the payload to redux
   const handleSearch = () => {

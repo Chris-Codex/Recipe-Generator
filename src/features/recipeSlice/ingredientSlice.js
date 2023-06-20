@@ -46,8 +46,7 @@ export const recipeSlice = createSlice({
 export default recipeSlice.reducer
 export const { setCategory, setRecipeCategory, setAllRecipes, setRecipeDetail, setLoading } = recipeSlice.actions
 
-//selectors
-
+//selector
 export const selectAllRecipes = (state) => state.ingredients.listRecipes
 export const selectRecipeCategory = (state) => state.ingredients.recipeCategory
 export const selectRecipeSingleDetail = (state) => state.ingredients.singleDetail

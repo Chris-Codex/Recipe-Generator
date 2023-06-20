@@ -66,6 +66,23 @@ const Recipe = () => {
               className="max-sm:w-[810px] max-sm:flex max-sm:flex-col max-sm:flex-auto max-sm:gap-6 md:w-[100%] md:flex md:flex-wrap   md:gap-6 md:h-full pb-20"
               data-cy="recipe-container"
             >
+              {getFilteredRecipe.length === 0 && (
+                <div className="flex items-center justify-center w-full h-screen">
+                  <div className="relative flex items-center justify-center">
+                    <img
+                      src={recipeImg}
+                      className="w-[50%] h-[50%]"
+                      alt="Not Available"
+                    />
+                  </div>
+                  <div className="absolute px-[370px] pt-[500px] bottom-[450px] flex justify-center items-center z-50">
+                    <p className="text-[#999] font-bold">
+                      No RECIPES AVAILABLE
+                    </p>
+                  </div>
+                </div>
+              )}
+
               {getFilteredRecipe ? (
                 getFilteredRecipe
                   .slice(nPagesVisited, nPagesVisited + listRecipesPerPage)

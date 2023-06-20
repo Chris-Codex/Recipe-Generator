@@ -11,14 +11,14 @@ const Pagination = ({ pageCount, changePage }) => {
           nextLabel={"Next"}
           pageCount={pageCount}
           onPageChange={changePage}
-          containerClassName="flex justify-center p-3 gap-4 items-center pl-[140px] w-full h-[60px] "
+          containerClassName="flex justify-center p-3 gap-4 items-center pl-[130px] w-[100%] h-[60px] "
           previousLinkClassName={
-            "flex w-[100px] h-[40px] items-center justify-center rounded-lg border border-[#18b648]"
+            "flex w-[100px] h-[40px] items-center justify-center rounded-lg border border-[#18b648] cursor-pointer"
           }
           nextLinkClassName={
             "flex w-[100px] h-[40px] items-center justify-center rounded-lg border border-[#18b648]"
           }
-          activeClassName="bg-[#18b648] text-[#fff] w-[100px]"
+          activeClassName=""
           disabledClassName={"paginationDisabled"}
         />
       </div>
