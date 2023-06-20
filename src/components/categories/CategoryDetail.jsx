@@ -7,6 +7,7 @@ import { GiHotMeal } from "react-icons/gi";
 import YouTube from "react-youtube";
 import SearchForms from "../SearchForms";
 import Footer from "../Footer";
+import Header from "../Header";
 
 const CategoryDetail = () => {
   const { id } = useParams();
@@ -59,8 +60,9 @@ const CategoryDetail = () => {
   return (
     <div>
       <Navbar />
+      <Header />
       <SearchForms />
-      <section className="w-full h-auto mt-[-40px]">
+      <section className="w-full h-auto ">
         <div className="flex flex-row justify-between max-w-[1340px] p-10 mx-auto items-center">
           <div className="max-sm:flex-col flex flex-wrap w-[100%] gap-2">
             <div className="max-sm:w-[100%] flex-auto h-[500px] bg-[#ebeede4e] w-[45%] rounded-lg flex justify-center items-center">
@@ -73,7 +75,7 @@ const CategoryDetail = () => {
               </div>
             </div>
 
-            <div className="max-sm:w-[100%] max-sm:px-3 max-sm:py-3 px-8 py-8 flex-auto w-[45%]">
+            <div className="max-sm:w-[100%] max-sm:px-3 max-sm:py-3 px-8 mt-[-13px] flex-auto w-[45%]">
               <h1 className="text-[40px]">{recipe.strMeal}</h1>
               <div className="">
                 <p>{recipe.strInstructions}</p>

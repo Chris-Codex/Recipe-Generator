@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
+import Header from "../Header";
 
 const RecipeDetail = () => {
   const { id } = useParams();
@@ -55,6 +56,7 @@ const RecipeDetail = () => {
   return (
     <div>
       <Navbar />
+      <Header />
       <section className="w-full h-auto mt-[-40px]">
         <div className="flex flex-row justify-between max-w-[1340px] p-10 mx-auto items-center">
           <div className="max-sm:flex-col flex flex-wrap w-[100%] gap-2">

@@ -96,14 +96,14 @@ const SearchForms = () => {
   return (
     <>
       {toggleSearchForm && (
-        <div className="absolute top-0 -right-[-122px] bg-[#752424] z-10 w-full flex justify-between max-w-[1340px] px-[248px]  mx-auto items-center">
+        <div className="max-sm:fixed max-sm:inset-0 max-sm:z-50  fixed inset-0 z-50 top-0 h-screen bottom-0 -right-[-129px] w-full flex justify-between max-w-[1340px] px-[248px]  mx-auto items-center">
           <div className="flex flex-wrap justify-between items-center w-full flex-shrink">
             <motion.div
-              animate={{ x: 4, scale: 1 }}
-              transition={{ delat: 1 }}
-              className="max-sm:flex max-sm:justify-center max-sm:items-center max-sm:w-10/12 max-sm:object-cover max-sm:top-[58px] max-sm:-left-[-165.9px] absolute top-20 w-[75.6%] pr-[5px] flex justify-end z-50"
+              animate={{ x: 30, scale: 1 }}
+              transition={{ delay: 0 }}
+              className="max-sm:flex max-sm:justify-center max-sm:items-center max-sm:w-10/12 max-sm:object-cover max-sm:top-[22%] max-sm:-left-[-8.9px] absolute top-[190px] w-[75.6%] -left-[-210px] flex justify-center"
             >
-              <div className="max-sm:w-full max-sm:object-cover w-6/12 h-[570px] mt-14 bg-[#000000ea]  rounded-tr-[30px] rounded-br-[30px]">
+              <div className="max-sm:w-full max-sm:object-cover max-sm w-6/12 h-[570px] mt-14 bg-[#000000ea]  rounded-tr-[30px] rounded-br-[30px]">
                 <div className="flex flex-row justify-between items-center">
                   <div className="max-sm:flex max-sm:justify-center max-sm:items-center max-sm:w-[50%] w-[40%] h-[50px] flex items-center justify-center bg-[#18b648] rounded-br-[20px]">
                     <p className="text-[#fff]">Search for your Recipes</p>

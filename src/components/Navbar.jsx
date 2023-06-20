@@ -18,14 +18,17 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="w-full h-auto" data-cy="container">
+    <nav
+      className="sticky top-0 bottom-0 z-50 bg-[#000] w-full h-auto"
+      data-cy="container"
+    >
       <div className="flex flex-row justify-between max-w-[1340px] p-10 mx-auto items-center">
         <div className="flex flex-row w-full justify-between items-center">
           <h1 className="text-3xl font-bold text-[#18b648] ">
             <Link to="/">Recipes.</Link>
           </h1>
           <nav className="hidden md:flex">
-            <ul className="flex flex-row text-[#646464]">
+            <ul className="flex flex-row text-[#fff]">
               <li className="p-4">
                 <Link to="/" data-cy="Home">
                   Home
@@ -41,15 +44,15 @@ const Navbar = () => {
                 onClick={handleSearchToggle}
                 data-cy="search-recipes"
               >
-                Search with Parameters
+                Search Recipes
               </li>
             </ul>
           </nav>
           <div className="block md:hidden" onClick={handleToggle}>
             {toggleHamburger ? (
-              <AiOutlineClose size={20} color="#fff" onClick={handleToggle} />
+              <AiOutlineClose size={20} color="#000" onClick={handleToggle} />
             ) : (
-              <GiHamburgerMenu size={20} color="#000" />
+              <GiHamburgerMenu size={25} color="#fff" />
             )}
           </div>
         </div>
@@ -63,7 +66,11 @@ const Navbar = () => {
           >
             <div className="flex flex-row justify-between items-center pt-4 ">
               <h4 className="text-2xl font-bold text-[#18b648] ">Recipes.</h4>
-              <AiOutlineClose size={20} color="#fff" onClick={handleToggle} />
+              <AiOutlineClose
+                size={20}
+                color="#18b648"
+                onClick={handleToggle}
+              />
             </div>
             <ul className="flex-col pt-[10px] text-[#646464] text-[15px] uppercase">
               <li className="p-4  border-b border-b-[#cbcbcb29]">Home</li>
