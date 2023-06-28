@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Header from "../Header";
 import Navbar from "../Navbar";
 import { Link } from "react-router-dom";
@@ -8,6 +8,7 @@ import SearchForms from "../SearchForms";
 import Loading from "../Loading";
 import recipeImg from "../../assets/recipe.jpeg";
 import { motion } from "framer-motion";
+import { SearchContext } from "../../context/Context";
 
 const Categories = () => {
   const [pageNumber, setPageNumber] = useState(0);
@@ -15,6 +16,7 @@ const Categories = () => {
   const [activeCategory, setActiveCategory] = useState("");
   const [recipe, setRecipe] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { shortenText } = useContext(SearchContext);
 
   //This useEffect Hook fetches categories list of recipes from the API and updates the local state
   useEffect(() => {
@@ -88,7 +90,9 @@ const Categories = () => {
             <div className="absolute top-0 bottom-0 inset-0 bg-[#5f68687c] opacity-50 rounded-[15px] shadow-lg group-hover:opacity-100"></div>
             <div className="absolute top-0 bottom-0 w-full flex-col justify-center items-center opacity-100 ">
               <div className="absolute top-0 bottom-0 flex justify-center w-8/12 h-[40px] items-center bg-[#18b648] rounded-br-[30px]">
-                <p className="text-[#fff] text-[15px] font-bold ">{strMeal}</p>
+                <p className="text-[#fff] text-[15px] font-bold ">
+                  {shortenText(strMeal, 20)}
+                </p>
               </div>
 
               <div className="absolute top-20 bottom-0 w-full flex items-center justify-center h-[40px] opacity-0 group-hover:opacity-100">
@@ -138,9 +142,9 @@ const Categories = () => {
                   return (
                     <div
                       key={category.idCategory}
-                      className={`w-full h-[40px] bg-[#18b648] flex justify-center items-center rounded-md my-3 ${
+                      className={`w-full h-[40px] bg-[#18b648] flex justify-center items-center rounded-md my-3 cursor-pointer ${
                         activeCategory === category.strCategory &&
-                        "bg-[#0e5624]"
+                        "bg-[#7fe67f]"
                       }`}
                       onClick={() => setActiveCategory(category.strCategory)}
                     >

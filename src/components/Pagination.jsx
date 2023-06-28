@@ -18,7 +18,7 @@ const Pagination = ({ pageCount, changePage }) => {
           nextLinkClassName={
             "flex w-[100px] h-[40px] items-center justify-center rounded-lg border border-[#18b648]"
           }
-          activeClassName=""
+          activeClassName="bg-[#18b648] text-[#fff] px-3 py-2"
           disabledClassName={"paginationDisabled"}
         />
       </div>

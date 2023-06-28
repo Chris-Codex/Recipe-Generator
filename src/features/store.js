@@ -1,12 +1,12 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
-import ingredientReducer from "./recipeSlice/ingredientSlice";
 import thunk from "redux-thunk";
+import recipeReducer from "./recipeSlice/recipeSlice";
 
 
 
 export const store = configureStore({
     reducer: {
-        ingredients: ingredientReducer
+        ingredients: recipeReducer
     },
     middleware: [...getDefaultMiddleware(), thunk],
 })

@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import {
   setLoading,
   setRecipeCategory,
-} from "../features/recipeSlice/ingredientSlice";
+} from "../features/recipeSlice/recipeSlice";
 import { motion } from "framer-motion";
 
 const SearchForms = () => {
@@ -108,7 +108,7 @@ const SearchForms = () => {
             <motion.div
               animate={{ x: 30, scale: 1 }}
               transition={{ delay: 0 }}
-              className="max-sm:flex max-sm:justify-center max-sm:items-center max-sm:w-10/12 max-sm:object-cover max-sm:top-[22%] max-sm:-left-[-8.9px] absolute top-[190px] w-[75.6%] -left-[-210px] flex justify-center"
+              className="max-sm:flex max-sm:justify-center max-sm:items-center max-sm:w-[82%] max-sm:object-cover max-sm:top-[22%] max-sm:-left-[-8.9px] absolute top-[190px] w-[75.6%] -left-[-210px] flex justify-center"
             >
               <div
                 className={`max-sm:w-full max-sm:object-cover max-sm  ${
