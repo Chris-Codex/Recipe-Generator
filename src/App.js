@@ -1,11 +1,16 @@
 import { Provider } from "react-redux";
-import Home from "./pages/Home";
+
 import { store } from "./features/store";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SearchProvider } from "./context/Context";
-import RecipeDetail from "./components/categories/CategoryDetail";
-import Recipe from "./components/recipes/Recipe";
-import CategoryDetail from "./components/categories/CategoryDetail";
+import Categories from "./pages/categories/Categories";
+import CategoryDetail from './pages/categories/CategoryDetail';
+import Recipe from './pages/recipes/Recipe';
+import RecipeDetail from './pages/recipes/RecipeDetail';
+
+
+
+
 
 
 function App() {
@@ -14,7 +19,7 @@ function App() {
       <SearchProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Categories />} />
             <Route path="/category_recipe_detail/:id" element={<CategoryDetail />} />
             <Route path="/recipe" element={<Recipe />} />
             <Route path="/recipe/:id" element={<RecipeDetail />} />

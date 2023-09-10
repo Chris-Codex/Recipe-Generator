@@ -27,9 +27,7 @@ const Footer = () => {
         </div>
         <div className="flex flex-row gap-1">
           <BiCopyright size={24} color="#fff" data-cy="icon" />
-          <p className="text-[#fff] font-bold">
-            2023 R-Generator. Payroc Assessment
-          </p>
+          <p className="text-[#fff] font-bold">2023 R-Generator.</p>
         </div>
       </div>
     </div>

@@ -8,7 +8,7 @@ const Loading = () => {
       data-cy="container"
     >
       <div className="flex flex-wrap justify-center items-center w-full h-screen flex-shrink">
-        <img src={loading} className="w-[100%] h-[10%]" alt="loading" />
+        <img src={loading} className="w-[80px] h-[80px]" alt="loading" />
       </div>
     </div>
   );

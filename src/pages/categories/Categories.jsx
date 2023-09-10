@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import Header from "../Header";
-import Navbar from "../Navbar";
 import { Link } from "react-router-dom";
 import { fetchAllCategories, fetchRecipes } from "../../services/api";
-import Pagination from "../Pagination";
-import SearchForms from "../SearchForms";
-import Loading from "../Loading";
 import recipeImg from "../../assets/recipe.jpeg";
 import { motion } from "framer-motion";
 import { SearchContext } from "../../context/Context";
+import Navbar from "../../components/Navbar";
+import Header from "../../components/Header";
+import Pagination from "../../components/Pagination";
+import SearchForms from "../../components/SearchForms";
+import Loading from "../../components/Loading";
 
 const Categories = () => {
   const [pageNumber, setPageNumber] = useState(0);

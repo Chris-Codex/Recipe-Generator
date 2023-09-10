@@ -1,19 +1,19 @@
 import React, { useContext, useState } from "react";
-import Header from "../Header";
-import Navbar from "../Navbar";
 import { Link } from "react-router-dom";
-import Pagination from "../Pagination";
-import SearchForms from "../SearchForms";
 import { useSelector } from "react-redux";
 import { SearchContext } from "../../context/Context";
-import Footer from "../Footer";
-import Loading from "../Loading";
 import recipeImg from "../../assets/recipe.jpeg";
 import { motion } from "framer-motion";
 import {
   selectAllRecipes,
   selectLoading,
 } from "../../features/recipeSlice/recipeSlice";
+import Navbar from "../../components/Navbar";
+import Header from "../../components/Header";
+import Pagination from "../../components/Pagination";
+import Footer from "../../components/Footer";
+import Loading from "../../components/Loading";
+import SearchForms from "../../components/SearchForms";
 
 const Recipe = () => {
   const [pageNumber, setPageNumber] = useState(0);
