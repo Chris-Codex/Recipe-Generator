@@ -9,6 +9,7 @@ import Header from "../../components/Header";
 import Pagination from "../../components/Pagination";
 import SearchForms from "../../components/SearchForms";
 import Loading from "../../components/Loading";
+import Footer from "../../components/Footer";
 
 const Categories = () => {
   const [pageNumber, setPageNumber] = useState(0);
@@ -188,6 +189,7 @@ const Categories = () => {
           <Pagination pageCount={pageCount} changePage={changePage} />
         )}
       </section>
+      <Footer />
     </main>
   );
 };
